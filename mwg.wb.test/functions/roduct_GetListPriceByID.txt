@@ -1,0 +1,15 @@
+Params: productid
+Language: sql
+##########################
+
+select
+ 
+ out('e_code_price').include('recordid', 'provinceid', 'productid', 'productcode', 'onlineprice', 'price', 'hisprice', 'isonlineonly', 'isshowhome', 'iswebshow', 'isbestselling', 'ispriceconfirm', 'standardkit', 'statusid', 'webstatusid', 'arrivaldate', 'isforthcoming', 'minstock', 'outofstock', 'quantity', 'totalquantity', 'centerquantity', 'isexist', 'isselected', 'isedited', 'rownumber', 'productarrivaldate', 'isproductforthcoming', 'webminstock', 'outofstockwarningquantity', 'luckytoprice', 'luckyfromprice', 'luckyvalue', 'updatedpricedate', 'districtid', 'categoryid', 'issalestore', 'isshowweb', 'isinputstore', 'productcodetotalquantity', 'productcodequantity', 'deliveryvehicles', 'netprice', 'refprice', 'maxprice', 'islimitproduct', 'isrequestimei', 'vituralquantity1', 'samplequantity1', 'ispriceofstore', 'deliverytype', 'islimit', 'outofstockdate', 'isbooking', 'isonlyonline', 'quantityunit', 'standardsaleprice', 'standardpriceareasaleprice', 'onlineareasaleprice', 'pricearea', 'outputtype', 'companyid') 
+ 
+from
+	pm_product
+ 
+where
+	productidref =:productid
+    and isactived = 1
+	and isdeleted = 0  limit 1

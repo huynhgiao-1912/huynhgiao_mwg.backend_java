@@ -1,0 +1,26 @@
+Params: productid, siteid, languageid
+Language: sql
+##########################
+/*
+	Lấy quan hệ product và thuộc tính giá trị
+    Creator	: Nguyễn Văn Trung
+    Date	: 20190801
+    productid: 114115 
+    siteid: 12
+    languageid = vi-VN
+*/
+      select
+          $productdetail:
+          {
+			productid,propertyid,value,languageid,
+      		isfeatureprop
+          } as productdetail,
+      	  $productdetail.propertyid as propertyidlist
+      from
+          product
+      let
+          $productdetail = out('e_product_detail')[languageid = 'vi-VN']
+      where
+          isactived = 1
+          and isdeleted = 0
+          and productid = :productid

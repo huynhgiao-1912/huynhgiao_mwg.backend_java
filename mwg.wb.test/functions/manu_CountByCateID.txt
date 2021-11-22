@@ -1,0 +1,11 @@
+Params: categoryid
+Language: sql
+##########################
+select
+	sum(out('e_manu_lang')[siteid = 12 and languageid = 'vi-VN'].size())[0] as manucount
+from 
+	product_manu
+where
+	isactived = 1
+    and isdeleted = 0
+    and categoryid = :categoryid

@@ -1,0 +1,14 @@
+Params: from, to
+Language: sql
+##########################
+/*
+	Lấy tồn kho theo productcode
+    Creator : Nguyễn Văn Trung
+    Date	: 20190806
+
+0131491001536
+199801
+*/
+
+let $skip = :from.asInteger() * :to.asInteger();
+select $skip

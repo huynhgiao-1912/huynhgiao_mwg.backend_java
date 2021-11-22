@@ -1,0 +1,30 @@
+Params: keyword, sorttype, poffset, pagesize
+Language: sql
+##########################
+LET $keyword="(categoryid:42^10000 OR categoryid:[0 TO 1000]) AND (  keyword:("+parserAnd(:keyword)+") OR  productname:("+parserAnd(:keyword)+")^10  OR  productname:("+parserOr(:keyword)+")  )";
+LET $a=SELECT  productid,categoryid ,createddate
+FROM product WHERE 
+
+SEARCH_CLASS($keyword, {
+    "allowLeadingWildcard": true ,
+    "lowercaseExpandedTerms": false,
+    "boost": {
+        "productname": 50,
+      "keyword": 1
+    } 
+}) = true  ;
+
+
+ 
+LET $c=  select categoryid,count(productid) as count,min(categoryid) as mian from $a group by categoryid ;  
+LET $d= select count( productid ) from $a  ;  
+LET $rs=[];
+if(:sorttype==1){
+ LET $rs=select from $a order by createddate desc skip 0 limit 11;
+}
+if(:sorttype==2){
+ LET $rs=select from $a order by createddate asc skip 0 limit 11;
+}
+ 
+ return  (select $d as total , $rs as productlist, $c as catelist);
+ 

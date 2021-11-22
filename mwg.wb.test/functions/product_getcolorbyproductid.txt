@@ -1,0 +1,40 @@
+Params: productid, siteid, languageid
+Language: sql
+##########################
+/*
+	Lấy màu sản phẩm
+    Creator : Nguyễn Văn Trung
+    Date	: 20190909
+    
+    productid: 209336
+    languageid: vi-VN
+    siteid: 12
+*/
+select
+	productid,
+    categoryid,
+    $productcode:
+    {
+      productid as productcode,
+      productcolorid as colorid
+    } as productcodeobj,
+    
+    $color:
+    {
+      colorid,
+      colorcode  
+    } as color,
+    
+    $colorlang:
+    {
+      colorid,
+      colorname  
+    } as colorName   
+from
+	product
+let
+	$productcode = out('e_product_code'),
+    $colorlang = out('e_product_code').in('e_code_color').out('e_product_color_lang')[languageid = :languageid],
+    $color = out('e_product_code').in('e_code_color')
+where
+	productid = :productid

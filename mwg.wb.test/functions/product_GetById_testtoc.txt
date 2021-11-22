@@ -1,0 +1,15 @@
+Params: productid, siteid, lang
+Language: sql
+##########################
+select  *,
+out('e_product_manu').manufacturername,/*tương đương join 2 table */
+out('e_product_category').categoryname, /*tương đương join 2 table */
+out('e_product_lang').include('productname','siteid'),/*tương đương join 2 table */
+out('e_product_code').productid  ,/*tương đương join 2 table */
+out('e_product_manu').out('e_manu_lang').include('manufacturerid', 'manufacturername' ) , /*tương đương join 3 table */
+  out('e_product_category').out('e_category_lang').include('categoryid', 'categoryname' )/*tương đương join 3 table */
+from
+ product
+ 
+where
+ productid = :productid  

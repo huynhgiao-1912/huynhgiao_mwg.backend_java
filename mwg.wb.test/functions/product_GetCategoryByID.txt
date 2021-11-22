@@ -1,0 +1,29 @@
+Params: categoryid, siteid
+Language: sql
+##########################
+select
+	*,
+    /*decode(System_Config.Configid,NULL,0,1) Sooncount,*/
+    $categorylang:
+    {
+    	parentid,categoryid,categoryname,description,createddate,
+        isactived,url,url as categoryurl,isaccessory,listproperty,
+        comparetpl_6col,metatitle,metakeyword,metadescription,nodetree,
+        keyword,bimage,simage,mimage,displayorder,
+        minpromotion,mindiscount,keyvalueimage,featureproductidlist AS featuredproductidlist,featurepropertyid,
+        manuadvisorlink,manuadvisortext,priceadvisorlink,dmdescription,siteid,
+        featureclassname,specialcategory,featurecolorid,outputbrandid,deliverytype,
+        isrefund,ecomdescription,seoname,timermetatile,timermetadescription,
+        timermetakeyword,timerfromdate,timertodate,newskeyword,dusermanual,
+        musermanual,newbimage,newsimage,keywordlist,tooltiptemplate,
+        breadcrum,autometatitle,autometadescription,oldmetatitle,oldmetadescription,
+        parentidlist,featuretemplate,productnametemplate,shortproductnametemplate,metatitletemplate,
+        metadescriptiontemplate,metakeywordtemplate,htmltemplate,listpropertyfilter,oldlistpropertyfilter,
+        returnpolicy
+    } as categorylang
+from
+	product_category
+let
+	$categorylang = out('e_category_lang')[isactived = 1 and isdeleted = 0 and siteid = :siteid and languageid = 'vi-VN'][0]
+where
+	categoryid = :categoryid

@@ -1,0 +1,19 @@
+Params: listid, siteid, lang
+Language: sql
+##########################
+/*
+	Lấy thông tin manu theo list ID
+	listid truyền theo kiểu array như mẫu, không test được trên studio
+    Creator : Dương Hồng Ân
+    Date	: 20190903
+    
+    listid: [2, 1971]
+    siteid: 12
+    lang: vi-VN
+*/
+select
+	manufacturerid as manufactureid, classifiedcount, countproduct, url, seoname, isexist, countclassified, displayorder, timermetadescription, timermetakeyword, timermetatitle, timerfromdate, timertodate, $lang.manufacturername as manufacturername, $lang.keyword as keyword, $lang.description as description, $lang.languageid as languageid, $lang.metadescription as metadescription, $lang.metakeyword as metakeyword, $lang.metatitle as metatitle, isactived
+from product_manu
+let
+	$lang = out('e_manu_lang')[languageid = :lang and siteid = :siteid][0]
+where manufacturerid in :listid and isactived = 1

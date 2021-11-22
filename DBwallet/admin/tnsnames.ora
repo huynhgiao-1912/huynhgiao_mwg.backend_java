@@ -1,0 +1,16 @@
+BETA_TGDD_NEWS =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.1.12.138)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = pdbbeta)
+    )
+  )
+TEST_TGDD_NEWS =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.1.12.204)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = oradbtest.thegioididong.com)
+    )
+  )

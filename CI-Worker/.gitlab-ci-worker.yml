@@ -1,0 +1,360 @@
+.job-build:
+  stage: build-worker
+  script:
+  - cd $CI_PROJECT_DIR/mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  
+  - cd $CI_PROJECT_DIR/mwg.mavenparent
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.validate
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.upsert
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.cook
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.productse
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.productold
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.sim
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.news
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.gameapp
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.common
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.promotion
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.pkg.price
+  - mvn clean install
+
+  - cd $CI_PROJECT_DIR/mwg.wb.factory
+  - mvn validate
+  - mvn clean install
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "worker" && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_TITLE =~ /^Update .gitlab-ci.yml|Merge branch*/'
+      when: always
+      variables:
+        GIT_STRATEGY: fetch
+  interruptible: true
+  retry: 0
+
+.job-deploy:
+  script:
+    - cp $CI_PROJECT_DIR/mwg.wb.factory/target/mwg.wb.factory-0.0.1-SNAPSHOT-shaded.jar $WORKER_DIR/worker/mwg.wb.factory.jar
+    - sudo systemctl stop workermonitor.service
+    - echo 'stop service'
+    - sudo systemctl start workermonitor.service
+    - echo 'start service'
+    - >
+      curl -X POST https://notify-api.line.me/api/notify  
+      -H "Authorization: Bearer $BACKENDGROUP" 
+      -H "Content-Type: application/x-www-form-urlencoded" 
+      -d "message=[INFO]: DEPLOY $WORKER_NAME Author: $CI_COMMIT_AUTHOR"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "worker" && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_TITLE =~ /^Update .gitlab-ci.yml|Merge branch*/'
+      when: manual
+      allow_failure: true
+      variables:
+        GIT_STRATEGY: none
+  interruptible: true
+  retry: 0
+
+.job-revert:
+  script:
+   - cp /home/thanhphi/cicd/bak/mwg.wb.factory.jar $WORKER_DIR/worker/mwg.wb.factory.jar
+   - sudo systemctl stop workermonitor.service
+   - echo 'stop service'
+   - sudo systemctl start workermonitor.service
+   - echo 'start service'
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "worker" && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_TITLE =~ /^Update .gitlab-ci.yml|Merge branch*/'
+      when: manual
+      allow_failure: true
+      variables:
+        GIT_STRATEGY: none
+
+.job-backup:
+  script:
+    - cp  $WORKER_DIR/worker/mwg.wb.factory.jar $WORKER_DIR/cicd/bak
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "worker" && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_TITLE =~ /^Update .gitlab-ci.yml|Merge branch*/'
+      when: manual
+      allow_failure: true
+      variables:
+        GIT_STRATEGY: none
+
+#Stop worker 126
+.stop-worker-126:
+  stage: stop-worker-65
+  script:
+    - echo "$CI_COMMIT_TAG"
+    - sudo systemctl stop workermonitor
+    - sudo systemctl stop workermonitor65
+  rules:
+    #Chỉ chạy trên branch worker
+    - if: '$CI_COMMIT_BRANCH =~ "/^worker$/" && $CI_COMMIT_TAG && $CI_COMMIT_TAG =~ "/^inject$/"'
+      when: manual
+      allow_failure: false
+      variables:
+        GIT_STRATEGY: none
+
+#Kiểm tra còn process nào đang chạy
+.check-worker-126:
+  stage: check-worker-65
+  script:
+    # Không => chuyển sang stage kế tiếp
+    # Chạy lại job 
+    - >
+      # !/bin/bash 
+      input=$(ps aux|grep java)
+      if [[ "$input" = "" ]]; then
+          exit 0
+      else
+          echo "Vẫn còn process đang chạy, thử chạy lại job sau 5s"
+          exit 1
+      fi
+
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ "/^worker$/" && $CI_COMMIT_TAG && $CI_COMMIT_TAG =~ "/^inject$/"'
+      when: delayed
+      start_in: 5 seconds
+      allow_failure: false
+      variables:
+        GIT_STRATEGY: none
+
+#Chạy lại worker 65
+.start-worker-126:
+  stage: start-worker-65
+  script:
+    - sudo systemctl start workermonitor
+    - sudo systemctl start workermonitor65
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ "/^worker$/" && $CI_COMMIT_TAG && $CI_COMMIT_TAG =~ "/^inject$/"'
+      when: manual
+      allow_failure: false
+      variables:
+        GIT_STRATEGY: none
+
+#Stop worker 65 
+.stop-worker-65:
+  stage: stop-worker-65
+  script:
+    - echo "$CI_COMMIT_TAG"
+    - sudo systemctl stop workermonitor
+  rules:
+    #Chỉ chạy trên branch worker
+    - if: '$CI_COMMIT_BRANCH =~ "/^worker$/" && $CI_COMMIT_TAG && $CI_COMMIT_TAG =~ "/^inject$/"'
+      when: manual
+      allow_failure: false
+      variables:
+        GIT_STRATEGY: none
+
+#Kiểm tra còn process nào đang chạy
+.check-worker-65:
+  stage: check-worker-65
+  script:
+    # Không => chuyển sang stage kế tiếp
+    # Chạy lại job 
+    - >
+      # !/bin/bash 
+      input=$(ps aux|grep java)
+      if [[ "$input" = "" ]]; then
+          exit 0
+      else
+          echo "Vẫn còn process đang chạy, thử chạy lại job sau 5s"
+          exit 1
+      fi
+
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ "/^worker$/" && $CI_COMMIT_TAG && $CI_COMMIT_TAG =~ "/^inject$/"'
+      when: delayed
+      start_in: 5 seconds
+      allow_failure: false
+      variables:
+        GIT_STRATEGY: none
+
+#Chạy lại worker 65
+.start-worker-65:
+  stage: start-worker-65
+  script:
+    - sudo systemctl start workermonitor
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ "/^worker$/" && $CI_COMMIT_TAG && $CI_COMMIT_TAG =~ "/^inject$/"'
+      when: manual
+      allow_failure: false
+      variables:
+        GIT_STRATEGY: none
+        
+.worker-live-65:
+    tags: [worker-5-65]
+
+.worker-live-126:
+    tags: [worker-2-126]
+
+.worker-beta-123:
+    tags: [worker-beta-123]
+    variables:
+        WORKER_DIR: "/home/thanhphi"
+        WORKER_NAME: "BETA 123"
+
+.server-live-114:
+    tags: [worker-live-114]
+    variables:
+        WORKER_DIR: "/home/phanvankhanh"
+        WORKER_NAME: "LIVE 114"
+
+.server-live-24:
+    tags: [worker-live-24]
+    variables:
+        WORKER_DIR: "/home/phanvankhanh"
+        WORKER_NAME: "LIVE 24"
+
+.server-live-109:
+    tags: [worker-live-109]
+    variables:
+        WORKER_DIR: "/home/phanvankhanh"
+        WORKER_NAME: "LIVE 109"
+
+.server-live-4:
+    tags: [worker-live-4]
+    variables:
+        WORKER_DIR: "/home/phanvankhanh"
+        WORKER_NAME: "LIVE 4"
+
+# worker 126
+stop-worker-126:
+    extends: [.stop-worker-126,.worker-live-126]
+
+check-worker-126:
+    extends: [.check-worker-126,.worker-live-126]
+    needs: [stop-worker-126]
+
+start-worker-126:
+    extends: [.start-worker-126,.worker-live-126]
+    needs: [check-worker-126]
+
+# worker 65
+stop-worker-65:
+    extends: [.stop-worker-65,.worker-live-65]
+
+check-worker-65:
+    extends: [.check-worker-65,.worker-live-65]
+    needs: [stop-worker-65]
+
+start-worker-65:
+    extends: [.start-worker-65,.worker-live-65]
+    needs: [check-worker-65]
+    
+# worker beta 123
+build-worker-123:
+    extends: [.job-build,.worker-beta-123]
+
+deploy-worker-123:
+    stage: deploy-worker-123
+    environment:
+        name: worker-beta-123
+        auto_stop_in: 1 day
+    extends: [.job-deploy,.worker-beta-123]
+    needs: [build-worker-123]
+
+revert-server-123:
+    stage: deploy-worker-123
+    extends: [.job-revert,.worker-beta-123]
+    needs: [build-worker-123]
+
+# backup-server-123:
+#     stage: deploy-beta-123
+#     extends: [.server-beta-123]
+#     needs: [build-server-123]
+
+# worker live 114
+build-server-114:
+    extends: [.job-build,.server-live-114]
+    
+deploy-server-114:
+    stage: deploy-worker-live-114
+    environment:
+        name: worker-live-114
+    extends: [.job-deploy,.server-live-114]
+    needs: [build-server-114]
+
+revert-server-114:
+    stage: deploy-worker-live-114
+    extends: [.job-revert,.server-live-114]
+    needs: [build-server-114]
+    
+# backup-server-114:
+#     stage: deploy-live-114
+#     extends: [.job-backup,.server-live-114]
+#     needs: [build-server-114]
+
+# worker live 24
+build-server-24:
+    extends: [.job-build,.server-live-24]
+    
+deploy-server-24:
+    stage: deploy-worker-live-24
+    environment:
+        name: worker-live-24
+    extends: [.job-deploy,.server-live-24]
+    needs: [build-server-24]
+
+revert-server-24:
+    stage: deploy-worker-live-24
+    extends: [.job-revert,.server-live-24]
+    needs: [build-server-24]
+    
+# backup-server-24:
+#     stage: deploy-live-24
+#     extends: [.job-backup,.server-live-24]
+#     needs: [build-server-24]
+
+# worker live 109
+build-server-109:
+    extends: [.job-build,.server-live-109]
+    
+deploy-server-109:
+    stage: deploy-worker-live-109
+    environment:
+        name: worker-live-109
+    extends: [.job-deploy,.server-live-109]
+    needs: [build-server-109]
+
+revert-server-109:
+    stage: deploy-worker-live-109
+    extends: [.job-revert,.server-live-109]
+    needs: [build-server-109]
+    
+# backup-server-109:
+#     stage: deploy-live-109
+#     extends: [.job-backup,.server-live-109]
+#     needs: [build-server-109]
+
+# worker live 4
+build-server-4:
+    extends: [.job-build,.server-live-4]
+    
+deploy-server-4:
+    stage: deploy-worker-live-4
+    environment:
+        name: worker-live-4
+    extends: [.job-deploy,.server-live-4]
+    needs: [build-server-4]
+
+revert-server-4:
+    stage: deploy-worker-live-4
+    extends: [.job-revert,.server-live-4]
+    needs: [build-server-4]

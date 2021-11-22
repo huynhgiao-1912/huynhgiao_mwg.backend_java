@@ -1,0 +1,23 @@
+{
+	"Logging": {
+		"LogLevel": {
+			"Default": "Warning"
+		}
+	},
+
+	"spring": {
+		"application": {
+			"name": "ms.factory",
+			"WORKER_COUNT": "5"
+		},
+		"cloud": {
+			"config": {
+				"uri": "http://172.16.2.25:2019",
+				"timeout": 10000,
+				"validate_certifates": false
+				//"env": "Development"
+			}
+		}
+	},
+	"AllowedHosts": "*"
+}

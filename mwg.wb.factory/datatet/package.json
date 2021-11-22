@@ -1,0 +1,38 @@
+[{ "PackageId": "p1", "ServerNumber":0, "Queue":"gr.beta.didx.sim","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.sim.Sim","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+,{ "PackageId": "p2", "ServerNumber":0,"Queue":"gr.beta.didx.product","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.product.Product","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+,{  "PackageId": "p3","ServerNumber":0,"Queue":"gr.beta.didx.product","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.product.Product","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+,{  "PackageId": "p4","ServerNumber":0,"Queue":"gr.beta.didx.productse","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.productse.ProductSE","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+
+,{  "PackageId": "gameapp","ServerNumber":0,"Queue":"gr.beta.didx.gameapp","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.gameapp.GameAppSE","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+
+
+,{  "PackageId": "p5","ServerNumber":0,"Queue":"gr.beta.didx.status","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.price.Status","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":20,"Message":null}
+ ,{"IsActiveProcess":1,"Queue":"gr.beta.didx.news","ProcessClassName":"mwg.wb.pkg.news.News","ScheduleClassName":null,"PackageId":"didxnews","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1, "DataCenter":3,"ServerNumber":"0" ,"IsActiveSchedule":0,"MaxProcessNumber":10,"Message":null}
+  ,{"IsActiveProcess":1,"Queue":"gr.beta.didx.faq","ProcessClassName":"mwg.wb.pkg.news.Faq","ScheduleClassName":null,"PackageId":"didxfaq","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1, "DataCenter":3,"ServerNumber":"0" ,"IsActiveSchedule":0,"MaxProcessNumber":10,"Message":null}
+ 
+
+
+ ,{"Queue":"gr.beta.sql.priority.sysdata","ProcessClassName":"mwg.wb.pkg.upsert.Upsert","ScheduleClassName":null,"PackageId":"sqlsysdata_priority","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"ServerNumber":"0" ,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+       ,{"Queue":"gr.beta.sql.sysnews","ProcessClassName":"mwg.wb.pkg.upsert.Upsert","ScheduleClassName":null,"PackageId":"sqlsysnews","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"ServerNumber":"0" ,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+ 
+
+    ,{"IsActiveProcess":1,"Queue":"gr.beta.didx.productold","ProcessClassName":"mwg.wb.pkg.productold.ProductOld","ScheduleClassName":null,"PackageId":"didxproductold","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1, "DataCenter":3,"ServerNumber":"0" ,"IsActiveSchedule":0,"MaxProcessNumber":10,"Message":null}
+ 
+
+
+
+,{"Queue":"gr.beta.sql.productold","ProcessClassName":"mwg.wb.pkg.upsert.Upsert","ScheduleClassName":null,"PackageId":"sqlproductold","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"ServerNumber":"0" ,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+
+,{"Queue":"gr.beta.sql.productoldpromotion","ProcessClassName":"mwg.wb.pkg.upsert.Upsert","ScheduleClassName":null,"PackageId":"sqlproductoldpromotion","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"ServerNumber":"0" ,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+
+
+,{  "PackageId": "p6","ServerNumber":0,"Queue":"gr.beta.service.promotion","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.service.Promotion","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+,{ "PackageId": "p7", "ServerNumber":0,"Queue":"gr.beta.service.price","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.service.Price","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":15,"Message":null}
+
+,{  "PackageId": "p8","ServerNumber":0,"Queue":"gr.beta.sql.price","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.upsert.Upsert","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+,{ "PackageId": "p9", "ServerNumber":0,"Queue":"gr.beta.sql.sysdata","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.upsert.Upsert","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+,{ "PackageId": "p10", "ServerNumber":0,"Queue":"gr.beta.sql.stock","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.upsert.Upsert","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":3,"Message":null}
+,{ "PackageId": "p11", "ServerNumber":0,"Queue":"gr.beta.sql.pricestatus","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.upsert.Upsert","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":3,"Message":null}
+,{  "PackageId": "p12","ServerNumber":0,"Queue":"gr.beta.sql.sim","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.upsert.Upsert","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+,{  "PackageId": "p13","ServerNumber":0,"Queue":"gr.beta.sql.promotion","ScheduleClassName":null,"ProcessClassName":"mwg.wb.pkg.upsert.Upsert","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":3,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+] 

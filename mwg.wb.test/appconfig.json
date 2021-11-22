@@ -1,0 +1,8 @@
+{
+	"APP_DIRECTORY_ROOT": "D:\\TheGioiDiDong\\_GITMicroservice\\mwg.backend\\ms.factory\\ms.factory\\bin\\Debug\\netcoreapp3.0\\",
+	"APP_DIRECTORY_ASSEMBLY": "D:\\TheGioiDiDong\\_GITMicroservice\\mwg.backend\\ms.factory\\ms.factory\\bin\\Debug\\netcoreapp3.0\\assembly\\netcoreapp3.0\\",
+	"WEB_URL_FILESVERSION": "http://10.1.4.123:5005/ms/root/filesversion.json",
+	"MONGODB_CONNECTIONSTRING": "mongodb://10.1.4.123",
+	"RABITMQ_CONNECTIONSTRING": "amqp://tgdd:Tgdd2012@192.168.2.55:5672",
+	"WORKER_COUNT": "20"
+}

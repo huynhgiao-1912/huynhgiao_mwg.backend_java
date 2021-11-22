@@ -1,0 +1,1703 @@
+# image: docker:latest
+
+# services:
+# - docker:dind
+
+variables:
+  WEBAPI_APP_NAME: mwg.wb.webapi
+  WEBAPI_DEPLOY_FOLDER: mswebapi
+  WEBAPI_APP_DIR: /opt/tomcat/$WEBAPI_DEPLOY_FOLDER
+  ROOTFOLDER: /opt/tomcat/$WEBAPI_DEPLOY_FOLDER/ROOT
+  
+  WEBSERVICE_APP_NAME: mwg.wb.webservice
+  WEBSERVICE_DEPLOY_FOLDER: mswebservice
+  WEBSERVICE_APP_DIR: /opt/tomcat/$WEBSERVICE_DEPLOY_FOLDER 
+  ROOTFOLDERWEBSERVICE: /opt/tomcat/$WEBSERVICE_DEPLOY_FOLDER/ROOT
+  BACKENDGROUP: yK3YC2BM2iRGz9tR0AOI8es8OLi4TE6N1AVOU7BxhHd
+  BENOTIFYGROUP: e4QuXuo08qZo6CK4wXLoO7djTuB9E9yEhIO2KusK6W9
+  BETANOTIFY: 5xoTa92TVZwZqc0qSj9VnVkWi5eaV3xZl8BkJUblaQL
+  #DOCKER_DRIVER: overlay
+
+# before_script:
+  # - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  
+ 
+stages:  
+  - build
+  - deploy
+  - deploy-datacenter-1
+  - deploy-datacenter-2
+  - deploy-worker-beta-123
+  - revert-datacenter-1
+  - revert-datacenter-2
+  - stop-datacenter-1
+  - stop-datacenter-2
+  - build-passartifact
+  - build-maven
+  - build-docker-factory
+  - deploy-DC4-p1
+  - deploy-DC4-p2
+  - deploy-DC4-p3
+  - deploy-DC4-p4
+  - deploy-DC2-p1
+  - deploy-DC2-p2
+  - deploy-DC2-p3
+  - deploy-DC2-p4
+  - build-worker
+  - deploy-worker-123
+  - deploy-worker-live-114
+  - deploy-worker-live-24
+  - deploy-worker-live-109
+  - deploy-worker-live-4
+  - stop-worker-65
+  - check-worker-65
+  - start-worker-65
+
+  
+# job-build-passartifact-109:
+  # stage: build-passartifact
+  # script:
+   # - echo "remove image, container none use..."
+   # - docker image prune -f
+   # - docker container prune -f
+   # - echo "config artifacts..." 
+   # - cp -R /data/workerconfig/ .
+  # artifacts:
+    # paths:
+      # - ./workerconfig
+    # expire_in: 1h
+  # only:
+  # - master
+
+  # variables:
+    # git_strategy: fetch
+  # tags:
+  # - shellworker109
+
+ 
+# job-build-maven-109:
+  # stage: build-maven
+  # script:
+   # - pwd
+   # - ls -lh
+   # - echo "create build-maven container from maven image..."
+   # - chmod +x maven-build.sh
+  
+   # - docker run -v "$CI_PROJECT_DIR":/root/app --name build-maven maven:latest sh /root/app/maven-build.sh 
+   
+   # - echo "list folder..."
+   # - ls -lh
+   # - cp mwg.wb.factory/target/mwg.wb.factory-0.0.1-SNAPSHOT-shaded.jar mwg.wb.factory.jar
+   # - docker rm -f build-maven
+  
+  # artifacts:
+    # paths:
+      # - mwg.wb.factory.jar
+      # - ./workerconfig
+    # expire_in: 1h
+  # only:
+  # - master
+  # dependencies:
+  # - job-build-passartifact-109
+
+  # variables:
+    # git_strategy: fetch
+  # tags:
+  # - dockerbuild109
+  
+# job-build-docker-factory-109:
+  # stage: build-docker-factory
+  # script:
+  # - echo "install docker-compose..."
+  # - apk update
+  # - apk upgrade
+  # - apk add curl python python-dev py-pip build-base libevent-dev libffi-dev openssl-dev  python3-dev wget
+  # #- curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  # - curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64" -o /usr/local/bin/docker-compose
+  
+  # - chmod +x /usr/local/bin/docker-compose
+  # - pip install docker-compose
+  
+  # - echo "docker compose build docker image factory..."
+  # #- docker build --pull -t $CI_REGISTRY_IMAGE:mwg.wb.factory .
+  # - docker-compose build --pull 
+  # - docker push $CI_REGISTRY_IMAGE:mwg.wb.factory-109
+  # only:
+  # - master
+  
+  # dependencies:
+  # - job-build-maven-109
+
+  # variables:
+    # git_strategy: fetch
+  # tags:
+  # - dockerbuild109
+#job-build-worker-beta-123:
+#  stage: build
+#  environment: beta
+#  script:
+# - cd mwg.wb.webapi
+#  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+#  - cd ..
+#  - echo "1. building model,common,client,bussiness..."
+#  - cd mwg.mavenparent
+#  - mvn clean install
+  
+#  - cd ..
+#  - echo "2. build mwg.wb.factory..."
+#  - cd mwg.wb.factory
+#  - echo "validate..."
+#  - mvn validate
+#  - echo "clean install ..."
+#  - mvn clean install
+ 
+#  only:
+#  - beta
+
+#  variables:
+#    GIT_STRATEGY: fetch
+#  tags:
+#  - worker-beta-123
+
+#job-deploy-worker-beta-123:
+#  stage: deploy-worker-beta-123
+#  environment: beta
+#  script:
+   #backup old project
+   #- sudo systemctl stop workermonitor
+#   - cp  /home/thanhphi/mwg.wb.factory.jar /home/thanhphi/cicd/bak
+#   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.factory-0.0.1-SNAPSHOT.war /home/thanhphi/mwg.wb.factory.jar
+   #- sudo systemctl start workermonitor
+#   - >
+#          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/#x-www-form-urlencoded" -d "message=[INFO]: DEPLOY BETA WORKER SUCCESS => Server 123"
+
+#  when: manual
+#  allow_failure: false
+#  only:
+#    refs:
+#      - /^worker-beta-v.*$/
+
+#  variables:
+#    GIT_STRATEGY: none
+#  tags:
+#  - worker-beta-123
+#  dependencies:
+ # - job-build-worker-beta-123
+
+job-build-staging-webapi-198:
+  stage: build
+  environment: staging
+  script:
+
+  - cd mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebapi..."
+  - echo "copy server config..."
+  - cp /data/webapist198.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+  - sudo rm mwg.wb.webapi/src/main/resources/application.properties
+  - cd mwg.wb.webapi
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  only:
+  - staging
+
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - javastagingapi198
+
+job-build-beta-webapi-123:
+  stage: build
+  environment: beta
+  script:
+
+  #- cd mwg.wb.webapi
+  #- mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  #- cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebapi..."
+  - echo "copy server config..."
+  - cp /data/webapibeta123.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+  - cd mwg.wb.webapi
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+  
+  - echo "3. change permission and copy..."
+  - sudo chmod -R 777 /opt/tomcat
+  - cd $WEBAPI_APP_DIR
+  - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+  - sudo chmod -R 750 /opt/tomcat
+  
+ 
+  only:
+  - beta
+
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - betaapi123
+  
+job-build-beta-webservice-123:
+  stage: build
+  environment: beta
+  script:
+
+  - pwd
+  - cd mwg.wb.webservice
+  # - mvn install:install-file -Dfile=ojdbc10.jar -DgroupId=com.oracle -DartifactId=ojdbc10 -Dversion=10 -Dpackaging=jar
+  - mvn install:install-file -Dfile=oraclepki.jar -DgroupId=com.oracle -DartifactId=oraclepki -Dversion=3 -Dpackaging=jar
+  - mvn install:install-file -Dfile=osdt_cert.jar -DgroupId=com.oracle -DartifactId=osdt_cert -Dversion=3 -Dpackaging=jar
+  - mvn install:install-file -Dfile=osdt_core.jar -DgroupId=com.oracle -DartifactId=osdt_core -Dversion=3 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+
+  # - echo "1. building model,common,client,bussiness..."
+  # - cd mwg.mavenparent
+  # - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebservice..."
+  - echo "copy server config..."
+  - cp /data/webservicebeta123.config/bootstrap.properties mwg.wb.webservice/src/main/resources
+  - cd mwg.wb.webservice
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  - echo "3. change permission and copy..."
+  - sudo chmod -R 777 /opt/tomcat
+  - cd $WEBSERVICE_APP_DIR
+  - cp $CI_PROJECT_DIR/$WEBSERVICE_APP_NAME/target/mwg.wb.webservice-1.0-SNAPSHOT.war ROOT.war
+  - sudo chmod -R 750 /opt/tomcat
+  
+ 
+  only:
+    refs:
+        - beta
+    variables:
+        - $CI_COMMIT_MESSAGE =~ /(wcf).*/
+
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - betaapi123
+  
+job-build-live-webservice-54:
+  stage: build
+  environment: production
+  script:
+
+  - cd mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebservice..."
+  - echo "copy server config..."
+  - cp /data/webservice54.config/bootstrap.properties mwg.wb.webservice/src/main/resources
+  - cd mwg.wb.webservice
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  - echo "3. change permission and copy..."
+  - sudo chmod -R 777 $WEBSERVICE_APP_DIR
+  - cd $WEBSERVICE_APP_DIR
+  - cp $CI_PROJECT_DIR/$WEBSERVICE_APP_NAME/target/mwg.wb.webservice-1.0-SNAPSHOT.war ROOT.war
+  - sudo chmod -R 750 $WEBSERVICE_APP_DIR
+  
+ 
+  only:
+  - production-webservice
+
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - webservice54
+
+job-build-webapi-6:
+  stage: build
+  script:
+  - cd mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebapi..."
+  - echo "copy server config..."
+  - cp /data/webapi6.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+  - cd mwg.wb.webapi
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  only:
+    refs:
+        - master
+    variables:
+        - $CI_COMMIT_MESSAGE =~ /(cicd).*/
+  
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - javaapi6
+
+job-build-webapi-7:
+  stage: build
+  script:
+  - cd mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebapi..."
+  - echo "copy server config..."
+  - cp /data/webapi7.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+  - cd mwg.wb.webapi
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  only:
+    refs:
+        - master
+    variables:
+        - $CI_COMMIT_MESSAGE =~ /(cicd).*/
+  
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - javaapi7
+
+job-build-webapi-8:
+  stage: build
+  script:
+  - cd mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebapi..."
+  - echo "copy server config..."
+  - cp /data/webapi8.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+  - cd mwg.wb.webapi
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  only:
+    refs:
+        - master
+    variables:
+        - $CI_COMMIT_MESSAGE =~ /(cicd).*/
+  
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - javaapi8
+
+job-build-webapi-9:
+  stage: build
+  script:
+  - cd mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebapi..."
+  - echo "copy server config..."
+  - cp /data/webapi9.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+  - cd mwg.wb.webapi
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  only:
+    refs:
+        - master
+    variables:
+        - $CI_COMMIT_MESSAGE =~ /(cicd).*/
+  
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - javaapi9
+  
+job-build-webapi-30:
+  stage: build
+  script:
+  - cd mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebapi..."
+  - echo "copy server config..."
+  - cp /data/webapi30.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+  - cd mwg.wb.webapi
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  only:
+    refs:
+        - master
+    variables:
+        - $CI_COMMIT_MESSAGE =~ /(cicd).*/
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - javaapi30
+  
+job-build-webapi-31:
+  stage: build
+  script:
+  - cd mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebapi..."
+  - echo "copy server config..."
+  - cp /data/webapi31.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+  - cd mwg.wb.webapi
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  only:
+    refs:
+        - master
+    variables:
+        - $CI_COMMIT_MESSAGE =~ /(cicd).*/
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - javaapi
+  
+job-build-webapi-32:
+  stage: build
+  script:
+  - cd mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebapi..."
+  - echo "copy server config..."
+  - cp /data/webapi32.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+  - cd mwg.wb.webapi
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  only:
+    refs:
+        - master
+    variables:
+        - $CI_COMMIT_MESSAGE =~ /(cicd).*/
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - javaapi32
+  
+job-build-webapi-56:
+  stage: build
+  script:
+  - cd mwg.wb.webapi
+  - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+  - cd ..
+  - echo "1. building model,common,client,bussiness..."
+  - cd mwg.mavenparent
+  - mvn clean install
+  
+  - cd ..
+  - echo "2. build mswebapi..."
+  - echo "copy server config..."
+  - cp /data/webapi56.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+  - cd mwg.wb.webapi
+  - echo "validate..."
+  - mvn validate
+  - echo "clean install ..."
+  - mvn clean install
+ 
+  only:
+    refs:
+        - master
+    variables:
+        - $CI_COMMIT_MESSAGE =~ /(cicd).*/
+  variables:
+    GIT_STRATEGY: fetch
+  tags:
+  - javaapi56
+
+
+job-deploy-staging-198:
+  stage: deploy
+  environment: staging
+  script:
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   - sudo sleep 30
+   
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BENOTIFYGROUP" -F "message=[ERROR]: DEPLOY STAGING API FAILED => Server 198 => AUTHOR: $GITLAB_USER_NAME" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BENOTIFYGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[Info] Deploy staging api SUCCESS => Server 198 => Author: $GITLAB_USER_NAME"
+     fi
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+ 
+  allow_failure: false
+  only:
+  - staging
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javastagingapi198
+  dependencies:
+  - job-build-staging-webapi-198
+  
+job-deploy-beta-123:
+  stage: deploy
+  environment: beta
+  script:
+  
+   - echo "0. change permission..."
+   - sudo chmod -R 777 /opt/tomcat
+   #- sudo chmod 777 $WEBSERVICE_APP_DIR/ROOT.war
+   #- 'curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BETANOTIFY" -H "Content-Type: application/x-www-form-urlencoded" -d "message=BetaAPI stopped"'
+   - echo "1. stop tomcat..."
+   - sudo systemctl stop tomcat
+
+   - echo "2. Restart service...."
+   - sudo systemctl start tomcat  
+   - sudo sleep 60
+   
+   - echo "3. test and notify...."
+
+#   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apiproduct/getproduct?productID=203369&siteID=2&provinceID=3&lang=vi-VN")
+#   - >
+#     if [[ "$status_code" -ne 200 ]] ; then
+#          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BETANOTIFY" -F "message=BetaAPI banh rồi"
+#          exit 0
+#     else
+#          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BETANOTIFY" -H "Content-Type: application/x-www-form-urlencoded" -d "message=BetaAPI started => $CI_COMMIT_MESSAGE ($GITLAB_USER_NAME)"
+#     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 /opt/tomcat
+ 
+  allow_failure: false
+  only:
+  - beta
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - betaapi123
+  dependencies:
+  - job-build-beta-webapi-123
+
+ 
+job-deploy-webapi-30:
+  stage: deploy-datacenter-1
+  environment: production
+  script:
+  #  - echo "maint ha proxy!"
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-30&b=#5&action=maint" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-30&b=#5&action=maint" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-30&b=#5&action=maint" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-30&b=#5&action=maint" http://172.16.3.23:8004/
+  #  - sudo sleep 10
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 30" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 30"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-30&b=#5&action=ready" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-30&b=#5&action=ready" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-30&b=#5&action=ready" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-30&b=#5&action=ready" http://172.16.3.23:8004/  
+   
+                
+  when: delayed
+  start_in: 5 minutes
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi30
+  dependencies:
+  - job-build-webapi-30
+
+job-deploy-webapi-31:
+  stage: deploy-datacenter-1
+  environment: production
+  script:
+
+  #  - echo "maint ha proxy!"
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-31&b=#5&action=maint" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-31&b=#5&action=maint" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-31&b=#5&action=maint" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-31&b=#5&action=maint" http://172.16.3.23:8004/
+  #  - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 31" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 31" -F "stickerPackageId=11539"  -F "stickerId=52114113"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+  #  - echo Restart success
+  #  - sudo chmod -R 750 $WEBAPI_APP_DIR
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-31&b=#5&action=ready" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-31&b=#5&action=ready" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-31&b=#5&action=ready" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-31&b=#5&action=ready" http://172.16.3.23:8004/  
+   
+  when: delayed
+  start_in: 6 minutes
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi
+  dependencies:
+  - job-build-webapi-31
+  #- job-deploy-webapi-30
+ 
+job-deploy-webapi-32:
+  stage: deploy-datacenter-2
+  environment: production
+  script:
+  #  - echo "maint ha proxy!"
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-32&b=#5&action=maint" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-32&b=#5&action=maint" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-32&b=#5&action=maint" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-32&b=#5&action=maint" http://172.16.3.23:8004/
+  #  - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 32" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 32"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-32&b=#5&action=ready" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-32&b=#5&action=ready" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-32&b=#5&action=ready" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-32&b=#5&action=ready" http://172.16.3.23:8004/  
+
+  when: delayed
+  start_in: 5 minutes
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi32
+  dependencies:
+  - job-build-webapi-32
+
+job-deploy-webapi-56:
+  stage: deploy-datacenter-2
+  environment: production
+  script:
+
+  #  - echo "maint ha proxy!"
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-56&b=#5&action=maint" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-56&b=#5&action=maint" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-56&b=#5&action=maint" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-56&b=#5&action=maint" http://172.16.3.23:8004/
+  #  - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 56" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 56" -F "stickerPackageId=11538"  -F "stickerId=51626500"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-56&b=#5&action=ready" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-56&b=#5&action=ready" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-56&b=#5&action=ready" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-56&b=#5&action=ready" http://172.16.3.23:8004/  
+   
+  when: delayed
+  start_in: 7 minutes
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi56
+  dependencies:
+  - job-build-webapi-56
+  #- job-deploy-webapi-32
+ 
+job-deploy-webapi-6:
+  stage: deploy-datacenter-1
+  environment: production
+  script:
+  #  - echo "maint ha proxy!"
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-6&b=#5&action=maint" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-6&b=#5&action=maint" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-6&b=#5&action=maint" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-6&b=#5&action=maint" http://172.16.3.23:8004/
+  #  - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 6" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 6"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-6&b=#5&action=ready" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-6&b=#5&action=ready" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-6&b=#5&action=ready" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-6&b=#5&action=ready" http://172.16.3.23:8004/  
+   
+  when: delayed
+  start_in: 1 minutes
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi6
+  dependencies:
+  - job-build-webapi-6
+  
+job-deploy-webapi-7:
+  stage: deploy-datacenter-1
+  environment: production
+  script:
+  #  - echo "maint ha proxy!"
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-7&b=#5&action=maint" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-7&b=#5&action=maint" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-7&b=#5&action=maint" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-7&b=#5&action=maint" http://172.16.3.23:8004/
+  #  - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 7" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 7"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-7&b=#5&action=ready" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-7&b=#5&action=ready" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-7&b=#5&action=ready" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-7&b=#5&action=ready" http://172.16.3.23:8004/  
+   
+  when: delayed
+  start_in: 3 minutes
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi7
+  dependencies:
+  - job-build-webapi-7
+
+job-deploy-webapi-8:
+  stage: deploy-datacenter-2
+  environment: production
+  script:
+  #  - echo "maint ha proxy!"
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-8&b=#5&action=maint" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-8&b=#5&action=maint" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-8&b=#5&action=maint" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-8&b=#5&action=maint" http://172.16.3.23:8004/
+  #  - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 8" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 8"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-8&b=#5&action=ready" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-8&b=#5&action=ready" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-8&b=#5&action=ready" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-8&b=#5&action=ready" http://172.16.3.23:8004/  
+   
+  when: delayed
+  start_in: 1 minutes
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi8
+  dependencies:
+  - job-build-webapi-8
+  
+job-deploy-webapi-9:
+  stage: deploy-datacenter-2
+  environment: production
+  script:
+
+  #  - echo "maint ha proxy!"
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-9&b=#5&action=maint" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-9&b=#5&action=maint" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-9&b=#5&action=maint" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-9&b=#5&action=maint" http://172.16.3.23:8004/
+  #  - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 9" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 9"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-9&b=#5&action=ready" http://172.16.3.23:8001/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-9&b=#5&action=ready" http://172.16.3.23:8002/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-9&b=#5&action=ready" http://172.16.3.23:8003/
+  #  - curl --user ha:proxy --request POST --http1.1 --post303 --data-raw "s=w2-9&b=#5&action=ready" http://172.16.3.23:8004/  
+   
+  when: delayed
+  start_in: 3 minutes
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi9
+  dependencies:
+  - job-build-webapi-9
+ 
+job-deploy-webservice-54:
+  stage: deploy-datacenter-1
+  environment: production
+  script:
+   - echo "0. change permission..."
+   - sudo chmod 777 $WEBSERVICE_APP_DIR/ROOT.war
+   - echo "1. stop tomcat..."
+   - sudo systemctl stop tomcat
+
+   - echo "2. Restart service...."
+   - sudo systemctl start tomcat  
+   - sudo sleep 30
+   
+   - echo "3. test...."
+   - curl --head "http://localhost:2060/apiproduct/hello"
+   - echo Restart success
+   
+   - echo "4. Push LINE Notify"
+      
+   - 'curl -X POST https://notify-api.line.me/api/notify 
+                -H "Authorization: Bearer e4QuXuo08qZo6CK4wXLoO7djTuB9E9yEhIO2KusK6W9"
+                -F "message=[IMPORTANT]: DEPLOY LIVE WEBSERVICE SUCCESS
+                => Server 54
+                => AUTHOR: $GITLAB_USER_NAME | $GITLAB_USER_LOGIN"
+                -F "stickerPackageId=3" 
+                -F "stickerId=220"'
+                
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webservice-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - webservice54
+  dependencies:
+  - job-build-live-webservice-54
+
+job-stop-datacenter-6:
+  stage: stop-datacenter-1
+  script:
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   
+   - echo Push LINE Notify
+   - 'curl -X POST https://notify-api.line.me/api/notify 
+                -H "Authorization: Bearer $BACKENDGROUP"
+                -H "Content-Type: application/x-www-form-urlencoded"
+                -d "message=Stop API success (Datacenter 1) => Server 6."'
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi6
+  
+job-stop-datacenter-7:
+  stage: stop-datacenter-1
+  script:
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   
+   - echo Push LINE Notify
+   - 'curl -X POST https://notify-api.line.me/api/notify 
+                -H "Authorization: Bearer $BACKENDGROUP"
+                -H "Content-Type: application/x-www-form-urlencoded"
+                -d "message=Stop API success (Datacenter 1) => Server 7."'
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi7
+  
+job-stop-datacenter-30:
+  stage: stop-datacenter-1
+  script:
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   
+   - echo Push LINE Notify
+   - 'curl -X POST https://notify-api.line.me/api/notify 
+                -H "Authorization: Bearer $BACKENDGROUP"
+                -H "Content-Type: application/x-www-form-urlencoded"
+                -d "message=Stop API success (Datacenter 1) => Server 30."'
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi30
+ 
+job-stop-datacenter-31:
+  stage: stop-datacenter-1
+  script:
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   
+   - echo Push LINE Notify
+   - 'curl -X POST https://notify-api.line.me/api/notify 
+                -H "Authorization: Bearer $BACKENDGROUP"
+                -H "Content-Type: application/x-www-form-urlencoded"
+                -d "message=Stop API success (Datacenter 1) => Server 31."'
+  when: manual              
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi
+  #dependencies:
+  #- job-stop-datacenter-30
+  
+job-stop-datacenter-32:
+  stage: stop-datacenter-2
+  script:
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   
+   - echo Push LINE Notify
+   - 'curl -X POST https://notify-api.line.me/api/notify 
+                -H "Authorization: Bearer $BACKENDGROUP"
+                -H "Content-Type: application/x-www-form-urlencoded"
+                -d "message=Stop API success (Datacenter 2) => Server 32."'
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi32
+ 
+job-stop-datacenter-56:
+  stage: stop-datacenter-2
+  script:
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   
+   - echo Push LINE Notify
+   - 'curl -X POST https://notify-api.line.me/api/notify 
+                -H "Authorization: Bearer $BACKENDGROUP"
+                -H "Content-Type: application/x-www-form-urlencoded"
+                -d "message=Stop API success (Datacenter 2) => Server 56."'
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi56
+  #dependencies:
+  #- job-stop-datacenter-32
+
+job-stop-datacenter-8:
+  stage: stop-datacenter-2
+  script:
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   
+   - echo Push LINE Notify
+   - 'curl -X POST https://notify-api.line.me/api/notify 
+                -H "Authorization: Bearer $BACKENDGROUP"
+                -H "Content-Type: application/x-www-form-urlencoded"
+                -d "message=Stop API success (Datacenter 2) => Server 8."'
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi8
+  #dependencies:
+  #- job-stop-datacenter-32
+  
+job-stop-datacenter-9:
+  stage: stop-datacenter-2
+  script:
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   
+   - echo Push LINE Notify
+   - 'curl -X POST https://notify-api.line.me/api/notify 
+                -H "Authorization: Bearer $BACKENDGROUP"
+                -H "Content-Type: application/x-www-form-urlencoded"
+                -d "message=Stop API success (Datacenter 2) => Server 9."'
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi9
+  #dependencies:
+  #- job-stop-datacenter-32
+
+job-revert-webapi-30:
+  stage: revert-datacenter-1
+  environment: production
+  script:
+  
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   - cp /opt/apibackup/ROOT.war .
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: REVERT API FAILED => Server 30 => AUTHOR: $GITLAB_USER_NAME" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: REVERT API 30"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+   
+                
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi30
+  dependencies:
+  - job-build-webapi-30
+ 
+job-revert-webapi-31:
+  stage: revert-datacenter-1
+  environment: production
+  script:
+  
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   - cp /opt/apibackup/ROOT.war .
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: REVERT API FAILED => Server 31 => AUTHOR: $GITLAB_USER_NAME" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: REVERT API 31"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+   
+                
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi
+  dependencies:
+  - job-build-webapi-31
+
+job-revert-webapi-6:
+  stage: revert-datacenter-1
+  environment: production
+  script:
+  
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   - cp /opt/apibackup/ROOT.war .
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: REVERT API FAILED => Server 6 => AUTHOR: $GITLAB_USER_NAME" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: REVERT API 6"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+   
+                
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi6
+  dependencies:
+  - job-build-webapi-6
+
+job-revert-webapi-7:
+  stage: revert-datacenter-1
+  environment: production
+  script:
+  
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   - cp /opt/apibackup/ROOT.war .
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: REVERT API FAILED => Server 7 => AUTHOR: $GITLAB_USER_NAME" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: REVERT API 7"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+   
+                
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi7
+  dependencies:
+  - job-build-webapi-7
+
+job-revert-webapi-8:
+  stage: revert-datacenter-2
+  environment: production
+  script:
+  
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   - cp /opt/apibackup/ROOT.war .
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: REVERT API FAILED => Server 8 => AUTHOR: $GITLAB_USER_NAME" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: REVERT API 8"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+   
+                
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi8
+  dependencies:
+  - job-build-webapi-8
+
+job-revert-webapi-9:
+  stage: revert-datacenter-2
+  environment: production
+  script:
+  
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   - cp /opt/apibackup/ROOT.war .
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: REVERT API FAILED => Server 9 => AUTHOR: $GITLAB_USER_NAME" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: REVERT API 9"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+   
+                
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi9
+  dependencies:
+  - job-build-webapi-9
+ 
+job-revert-webapi-32:
+  stage: revert-datacenter-2
+  environment: production
+  script:
+  
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   - cp /opt/apibackup/ROOT.war .
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: REVERT API FAILED => Server 32 => AUTHOR: $GITLAB_USER_NAME" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: REVERT API 32"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+   
+                
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi32
+  dependencies:
+  - job-build-webapi-32
+
+
+job-revert-webapi-56:
+  stage: revert-datacenter-2
+  environment: production
+  script:
+  
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   - cp /opt/apibackup/ROOT.war .
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+   - echo "3. test and notify...."
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: REVERT API FAILED => Server 56 => AUTHOR: $GITLAB_USER_NAME" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: REVERT API 56"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+     
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+   
+                
+  when: manual
+  #allow_failure: false
+  only:
+    refs:
+      - /^webapi-production-v.*$/
+  variables:
+    GIT_STRATEGY: none
+  tags:
+  - javaapi56
+  dependencies:
+  - job-build-webapi-56
+
+
+include:
+  - local: CICD-WebAPI/.gitlab-ci-webapi.yml
+  - local: CI-Worker/.gitlab-ci-worker.yml
+  - local: CICD-WebAPI/.gitlab-ci-webapi-production.yml
+
+# include: 'CICD-WebAPI/.gitlab-ci-webapi.yml'
+# # include: 'CICD-WebAPI/.gitlab-ci-webapi-production.yml'
+# include: 'CI-Worker/.gitlab-ci-worker.yml'

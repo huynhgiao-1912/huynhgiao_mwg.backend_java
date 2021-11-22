@@ -1,0 +1,51 @@
+Params: listid, siteid, provinceid, lang
+Language: sql
+##########################
+/*
+	Lấy thông tin SP đơn giản theo list ID (dành cho search)
+	listid và listcode truyền theo kiểu array như mẫu, không test được trên studio
+    Creator : Dương Hồng Ân
+    Date	: 20190903
+    
+    listid: [196963, 144115]
+    siteid: 12
+    provinceid: 3
+    languageid: vi-VN
+    producttype: 1: phụ kiện, <= 0: bình thường
+*/
+select
+	productid, $productlang.productname as productname, categoryid,
+    $promotions: {
+		recordid, promotionid, promotionlistgroupname, productcode, discountvalue, ispercentdiscount, isdeleted, begindate, enddate,  ispercentdiscount, promotionlistgroupid, groupid, productname, productids
+	} as promotion, 
+    /*$productgallery:{ pictureid, mobile_picture, picture_large, picture_org, 
+        picture_thumbnai, ifnull(picture_thumbnail,picture_org) as picture } as productgallery,*/
+	$manu: {
+	   manufacturerid as manufactureid, manufacturername, url
+	} as productmanubo,
+	/*$productlang: {
+     ispreordercam,preordercamfromdate, preordercamtodate
+    } as  productlanguagebo,*/
+	$productcategorylangbo: {
+    	categoryname, categoryid, url, categoryseoname as seoname
+    } as productcategorylangbo,
+	$productcategorybo: {
+    	categoryname, categoryid, url,isaccessory   
+    } as productcategorybo,
+	$productlang.bimage as bimage, $productlang.mimage as mimage, $productlang.simage as simage, $productlang.simage, ifnull(description, $productlang.description) as description,
+	$productlang: {url,  productname, ispreordercam,preordercamfromdate, preordercamtodate } as productlanguagebo,
+	$pricedefault: {recordid, productid, productcode, provinceid, webstatusid, isshowhome, price, price402, priceorg, siteid, langid} as producterppricebo,
+    $prices: {recordid, productid, productcode, provinceid, webstatusid, isshowhome, price, iswebshow, pricearea} as producterppricebolist
+from
+	product
+let
+	
+	$promotions = out('e_product_code').out('e_code_promotion')[isdeleted =0 and siteid = :siteid and enddate > sysdate() and begindate < sysdate() and langid = :lang and provinceid = :provinceid],
+	$manu = out('e_product_manu')[0],
+	$productlang = out('e_product_lang')[siteid = :siteid and languageid = :lang][0],
+	$productcategorybo = out('e_product_category')[0],
+	$productcategorylangbo = $productcategorybo.out('e_category_lang')[siteid = :siteid and languageid = :lang][0],
+	$pricedefault = out('e_product_pricedefault')[provinceid = :provinceid  and siteid = :siteid and langid = :lang][0],
+    $prices = out('e_product_code').out('e_code_price')[provinceid = :provinceid and siteid = :siteid and langid = :lang]
+where
+	productid in :listid  

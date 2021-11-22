@@ -1,0 +1,6 @@
+Params: propertyid, recordvalue
+Language: sql
+##########################
+begin;
+create edge e_product_prop_lang  from(select from product_prop  where propertyid= :propertyid) to(select from product_prop_lang    where recordid= :recordvalue) ;
+commit ;

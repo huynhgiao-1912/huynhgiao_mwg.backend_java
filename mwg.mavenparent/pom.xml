@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>mwg.mavenparent</groupId>
+	<artifactId>mwg.mavenparent</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>../mwg.wb.model</module>
+		<module>../mwg.wb.common</module>
+		<module>../mwg.wb.client</module>
+		<module>../mwg.wb.business</module>
+		<!--<module>../mwg.wb.pkg.news</module>
+		<module>../mwg.wb.pkg.price</module>
+		<module>../mwg.wb.pkg.productse</module>
+		
+		<module>../mwg.wb.pkg.sim</module>
+		<module>../mwg.wb.pkg.cook</module>
+		<module>../mwg.wb.pkg.upsert</module>
+		<module>../mwg.wb.pkg.promotion</module>
+		<module>../mwg.wb.pkg.productold</module>
+		<module>../mwg.wb.pkg.gameapp</module>
+		<module>../mwg.wb.pkg.tracking</module>
+		<module>../mwg.wb.factory</module>-->
+		
+	</modules>
+</project>

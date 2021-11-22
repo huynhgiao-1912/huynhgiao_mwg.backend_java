@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+	<soap:Body>
+		<GetPromotionByCodeDMX
+			xmlns="http://tempuri.org/">
+			<strAuthen>{strAuthen}</strAuthen>
+			<objResultMessage>
+				<IsError>false</IsError>
+				<ErrorType>LoadInfo</ErrorType>
+				<Message>string</Message>
+				<MessageDetail>string</MessageDetail>
+				<ErrorCode>0</ErrorCode>
+				<Parram>string</Parram>
+			</objResultMessage>
+			<strProductID>{strProductID}</strProductID>
+			<strIMEI>{strIMEI}</strIMEI>
+			<intStoreID>{intStoreID}</intStoreID>
+			<intInventoryStatusID>{intInventoryStatusID}</intInventoryStatusID>
+			<intSiteID>{intSiteID}</intSiteID>
+		</GetPromotionByCodeDMX>
+	</soap:Body>
+</soap:Envelope>

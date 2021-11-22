@@ -1,0 +1,39 @@
+Params: categoryid, siteid, languageid
+Language: sql
+##########################
+/*
+	Lấy danh sách price range theo ngành hàng
+    Creator : Nguyễn Văn Trung
+    Date	: 20191008
+    
+    oracle: PRODUCT_PRICERANGE_COUNTBYCAT
+*/
+select
+from
+(
+  select
+      rangeid, `from`, to,
+      displayorder, categoryid, isactived,
+  	  $pricerangelang.rangename as rangename,
+      $pricerangelang.metatitle as metatitle,
+      $pricerangelang.metadescription as metadescription,
+      $pricerangelang.displayname as displayname
+  from
+      product_pricerange
+  let
+      $pricerangelang = out('e_pricerange_lang')[languageid = :languageid][0]
+  where
+      categoryid = :categoryid
+      and 
+      (
+      	(isactived = 1 and :siteid <> 12)
+        or :siteid = 12
+      )  
+      and 
+      (
+        (rangeid in [629, 630, 631, 632] and :siteid = 12)
+        or :siteid <> 12
+      )  
+      and isdeleted = 0
+)
+where rangename is not null

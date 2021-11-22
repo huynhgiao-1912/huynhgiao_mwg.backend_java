@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+	<soap:Body>
+		<GetPromotionByPrdIDNew
+			xmlns="http://tempuri.org/">
+			<strAuthen>{strAuthen}</strAuthen>
+			<objResultMessage>
+				<IsError>false</IsError>
+				<ErrorType>GetData</ErrorType>
+				<Message>string</Message>
+				<MessageDetail>string</MessageDetail>
+				<ErrorCode>0</ErrorCode>
+				<Parram>string</Parram>
+			</objResultMessage>
+			<objKeywords>
+				<anyType xsi:type="xsd:string">@ProductID</anyType>
+				<anyType xsi:type="xsd:string">{ProductID}</anyType>
+				<anyType xsi:type="xsd:string">@ProvinceID</anyType>
+				<anyType xsi:type="xsd:string">{ProvinceID}</anyType>
+				<anyType xsi:type="xsd:string">@Imei</anyType>
+				<anyType xsi:type="xsd:string">{Imei}</anyType>
+				<anyType xsi:type="xsd:string">@SiteID</anyType>
+				<anyType xsi:type="xsd:string">{SiteID}</anyType>
+				<anyType xsi:type="xsd:string">@StoreID</anyType>
+				<anyType xsi:type="xsd:string">{StoreID}</anyType>
+				<anyType xsi:type="xsd:string">@OutputTypeID</anyType>
+				<anyType xsi:type="xsd:string">0</anyType>
+				<anyType xsi:type="xsd:string">@SalePrice</anyType>
+				<anyType xsi:type="xsd:string">0</anyType>
+				<anyType xsi:type="xsd:string">@Inventorystatusid</anyType>
+				<anyType xsi:type="xsd:string">2</anyType>
+				<anyType xsi:type="xsd:string">@Top</anyType>
+				<anyType xsi:type="xsd:string">50</anyType>
+			</objKeywords>
+		</GetPromotionByPrdIDNew>
+	</soap:Body>
+</soap:Envelope>

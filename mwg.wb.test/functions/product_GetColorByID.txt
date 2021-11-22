@@ -1,0 +1,30 @@
+Params: productid, lang
+Language: sql
+##########################
+/*
+	Lấy màu sản phẩm theo ID
+    Creator : Dương Hồng Ân
+    Date	: 20191004
+    
+    productid: 196963
+    lang: vi-VN
+*/
+select
+	color.colorid as colorid, lang.colorname as colorname, color.colorcode as colorcode, color.isactived as isactived, color.activeddate as activeddate, color.activeduser as activeduser, color.isdeleted as isdeleted, color.deleteddate as deleteddate, color.deleteduser as deleteduser, color.createddate as createddate, color.createduser as createduser, color.updateddate as updateddate, color.updateduser as updateduser, color.icon as icon, color.isexist as isexist, color.productid as productid, productid as productcode, color.categoryid as categoryid, color.price as price, color.picture as picture, color.preorderprice as preorderprice
+from (
+	select
+		productid,
+		$color: {
+			colorid, colorname, colorcode, isactived, activeddate, activeduser, isdeleted, deleteddate, deleteduser, createddate, createduser, updateddate, updateduser, icon, isexist, productid, productcode, categoryid, price, picture, preorderprice
+		} as color,
+		$lang: {
+			colorname
+		} as lang
+	from
+		pm_product
+	let
+		$color = out('e_code_color')[0],
+		$lang = $color.out('e_product_color_lang')[languageid = :lang][0]
+	where
+		productidref = :productid
+)

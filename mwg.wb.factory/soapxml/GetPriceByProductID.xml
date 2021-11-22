@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <GetPriceByProductID xmlns="http://tempuri.org/">
+      <strAuthen>{strAuthen}</strAuthen>
+      <objResultMessage>
+        <IsError>false</IsError>
+        <ErrorType>LoadInfo</ErrorType>
+        <Message>string</Message>
+        <MessageDetail>string</MessageDetail>
+        <ErrorCode>0</ErrorCode>
+        <Parram>string</Parram>
+      </objResultMessage>
+      <intPriceAreaID>{intPriceAreaID}</intPriceAreaID>
+      <strProductID>{strProductCode}</strProductID>
+      <intOutputTypeID>{intOutputTypeID}</intOutputTypeID>
+      <intCompanyID>{intCompanyID}</intCompanyID>
+    </GetPriceByProductID>
+  </soap:Body>
+</soap:Envelope>

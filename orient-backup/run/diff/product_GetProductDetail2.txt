@@ -1,0 +1,23 @@
+Params: productid, lang
+Language: sql
+##########################
+/*
+Khong lay type
+*/
+select expand(productdetail) from
+(
+	select
+	  $productdetail:
+	  {
+		productid,propertyid,value,languageid,
+		isfeatureprop
+	  } as productdetail
+	from
+	  product
+	let
+	  $productdetail = out('e_product_detail')[languageid = :lang]
+	where
+	  isactived = 1
+	  and isdeleted = 0
+	  and productid = :productid
+) 

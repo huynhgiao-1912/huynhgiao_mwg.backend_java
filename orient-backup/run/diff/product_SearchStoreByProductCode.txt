@@ -1,0 +1,42 @@
+Params: productcode, brandid, provinceid, districtid
+Language: sql
+##########################
+/*
+	Tìm kiếm siêu thị còn hàng
+    Creator : Nguyễn Văn Trung
+    Date	: 20190927	
+	0131491001466, 0130018000033, 1000150033616,
+    0131491001562, 0131491001563, 0131491001561
+    
+    (PM_Store.Openingday < sysdate OR trunc(PM_Store.Openingday) + 1/3 < sysdate OR PM_Store.Openingday IS NULL)
+*/
+select
+	$result.storeid as storeidlist
+let
+	$stock = 
+    (
+      select
+      	storeid
+      from
+          pm_currentinstock
+      where
+          productid = :productcode
+          and inventorystatusid = 1
+          and quantity > 0
+          and (quantity - (scorderlockquantity + lockquantity + pcorderlockquantity + warrantydeactivequantity + storechangequantity + statuslockquantity)) > 0
+    ),  
+
+    $store =
+    (
+      select
+		storeid
+      from
+          pm_store
+      where
+          provinceid = :provinceid
+          and brandid = :brandid
+      	  and (districtid = :districtid or :districtid < 1)
+		  and storetypeid IN [1,12,21,10]
+	      and (openingday < sysdate() or openingday is null or sum(openingday.asLong(),28800000).asDateTime() < sysdate())
+    ),
+    $result = intersect($stock,$store)

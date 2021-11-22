@@ -1,0 +1,80 @@
+PUT /ms_product/_mapping
+{
+ 
+      "properties": { 
+        "listproperty": {
+          "type": "nested",
+          "properties": { 
+            "propkey": {
+              "type": "double" 
+            }
+          }
+        }
+      }
+    
+}
+PUT /ms_product/_settings
+{
+  "index.mapping.total_fields.limit": 50000
+}
+
+
+ GET /ms_product/_search
+{
+  "size": 1,
+  "query": {
+    "match_all": {}
+  },
+  "aggs": {
+    "Nest": {
+      "nested": {
+        "path": "attributes"
+      },
+      "aggs": {
+        "fieldIds": {
+          "terms": {
+            "field": "attributes.valueid",
+            "size": 3
+          },
+          "aggs": {
+            "values": {
+              "terms": {
+                "field": "attributes.valueid",
+                "size": 3
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+ 
+
+ 
+PUT /metricbeat-6.6.2-2019.04.09/_settings
+{
+  "index": {
+    "query": {
+      "default_field": [
+        "aerospike.namespace.name",
+        "aerospike.namespace.node.host",
+        "aerospike.namespace.node.name",
+        "apache.status.hostname",
+        "beat.hostname",
+        "beat.name",
+        "beat.timezone",
+        "beat.version",
+        ...
+      ]
+    }
+  }
+}
+
+PUT /ms_product/_settings
+{
+    "index" : {
+        "refresh_interval" : "1s",
+        "search.idle.after" : "10000d"
+    }
+}

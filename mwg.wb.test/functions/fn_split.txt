@@ -1,0 +1,6 @@
+Params: s
+Language: javascript
+##########################
+ 
+var res = s.trim().replace(/(^['\"]+)|(['\"]+$)/g, "").split(",");  
+return res; 

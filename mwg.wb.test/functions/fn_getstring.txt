@@ -1,0 +1,4 @@
+Params: s
+Language: javascript
+##########################
+return s;

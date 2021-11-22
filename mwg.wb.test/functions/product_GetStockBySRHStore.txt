@@ -1,0 +1,50 @@
+Params: productcode, provinceid, brandid, districtid
+Language: sql
+##########################
+/*
+	Tìm kiếm siêu thị còn hàng
+    creator : Nguyễn Văn Trung
+    Date	: 20190801
+    
+    productcode: 0130018000350, 0131491001683 | 0131491001537
+    provinceid: 3
+*/
+select
+storeid, provinceid, districtid,issalestore,
+          storename,storeaddress,  webstorename as storefullname,
+          orderindex as storesort,
+          brandid as isdefault,
+          webaddress, lat,lng,storeshortname,storetypeid,
+          openingday,isshowweb,reopendate
+from
+	pm_store
+where
+	storeid in 
+      (
+select
+      storeid
+from
+(
+	select 
+    	expand(store)
+    from 
+    (
+	select
+         
+         out_e_code_stock.in:{
+           storeid,
+             (quantity - (scorderlockquantity + lockquantity + pcorderlockquantity + warrantydeactivequantity + storechangequantity + statuslockquantity)) as quantity
+         } as store
+      from
+          pm_product
+      
+      where
+          productid = :productcode)
+ )
+ where quantity > 0
+)
+and 
+	provinceid = :provinceid
+    and brandid = :brandid
+    and (districtid = :districtid or :districtid < 1)
+limit 50

@@ -1,0 +1,4 @@
+Params: productcode
+Language: sql
+##########################
+select productidref from pm_product where productid=:productcode limit 1

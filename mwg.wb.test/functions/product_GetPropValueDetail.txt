@@ -1,0 +1,58 @@
+Params: propertyid, siteid, languageid
+Language: sql
+##########################
+
+/*
+	Lấy tất cả giá trị của thuộc tính
+    Creator	: Nguyễn Văn Trung
+    Date	: 20190801
+    
+    propertyid: 10860 
+    siteid: 12
+    languageid = vi-VN
+*/
+
+let $propvalue =
+(
+  select
+  	  propertyid,
+      $propvaluelang:
+      {
+          value,valueid,issearch,comparevalue,icon,
+          isexistpro,displayorder,iconscale,metatitle,isimportant,
+          shortname,smoothurl,metakeyword,isinitsearch
+      } as propvaluelang
+  from 
+      product_propvalue
+  let
+      $propvaluelang = out('e_product_propvalue_lang')[languageid = :languageid and siteid = :siteid]
+  where
+      propertyid = :propertyid
+      and isdeleted = 0
+      and isactived = 1
+);
+
+let
+	$prop =
+(
+  select
+  	propertyid,
+  	propertytype,
+  	$proplang:
+  	{
+  		propertyname,isshowspecs,displayorder,propertyweight,propissearchbhx,
+  		propissearchtgdd,propissearchdmx,propissearchvuivui,propissearch,
+  		propissearchbhx,issuggestaccessoryprop,isaddup,isforceimport
+  	} as proplang
+  from
+  	product_prop
+  let
+  	$proplang = out('e_product_prop_lang')[languageid = :languageid and siteid = 0 and isactived = 1 and isdeleted = 0]
+  where
+  	propertyid = :propertyid
+); 
+
+/*let $all = UNIONALL($prop,$propvalue);*/
+
+return (select $prop as prop,$propvalue as propvalue);
+/*(select $prop as prop,$propvalue as propvalue);*/

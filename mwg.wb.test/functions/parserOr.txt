@@ -1,0 +1,7 @@
+Params: s
+Language: javascript
+##########################
+ 
+var res = s.trim().split(" "); 
+var rs = res.join(" OR ");
+return rs;  

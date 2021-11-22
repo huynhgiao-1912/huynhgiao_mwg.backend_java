@@ -1,0 +1,6 @@
+[    
+ { "Queue":"gr.test.sql.sysdata","ProcessClassName":"mwg.wb.pkg.upsert.Upsert","ScheduleClassName":null,"PackageId":"sqlsysdata01","Assembly":null,"DownloadUrl":null,"Version":null,"IsActive":1,"IsActiveProcess":1,"DataCenter":2,"ServerNumber":"13" ,"ServerNumberWrite":"0" ,"IsActiveSchedule":0,"MaxProcessNumber":1,"Message":null}
+ 
+
+
+  ]

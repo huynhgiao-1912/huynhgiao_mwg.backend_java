@@ -1,0 +1,12 @@
+Params: 
+Language: sql
+##########################
+/*
+	Lấy ra productidref của productcode
+    Creator : Nguyễn Văn Trung
+    Date	: 20190807
+    
+    0131491001536
+*/
+
+return  (select productidref from pm_product where productid ='0131491001536' limit 1 );

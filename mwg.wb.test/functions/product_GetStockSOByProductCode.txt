@@ -1,0 +1,29 @@
+Params: productid, brandid
+Language: sql
+##########################
+ select 
+ set(storeid) as storeidlist,
+ provinceid[0] as provinceid,
+ sum(quantity) as quantity,
+ :brandid as brandid,
+ productid as productcode
+ 
+ from (
+ select  
+   out('e_stock_store')[isactive = 1 and isdeleted = 0 and brandid = :brandid].storeid as storeid,
+  out('e_stock_store').provinceid as provinceid, 
+   /*$store.provinceid as provinceid,*/
+    quantity,productid,centerquantity,productcodequantity,webminstock
+ from
+  pm_currentinstock
+  
+ where    
+   productid = :productid  
+   and inventorystatusid=1
+   and out('e_stock_store')[isactive = 1 and isdeleted = 0 and brandid = :brandid].size()>0
+   and (quantity - (scorderlockquantity + lockquantity + pcorderlockquantity + warrantydeactivequantity + storechangequantity + statuslockquantity)) > 0
+
+)
+
+   
+   group by provinceid 

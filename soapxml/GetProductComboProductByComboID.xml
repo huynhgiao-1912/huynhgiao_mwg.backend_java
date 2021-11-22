@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <GetProductComboProductByComboID xmlns="http://tempuri.org/">
+     <strAuthen>string</strAuthen>
+       <objResultMessage>
+        <IsError>false</IsError>
+        <ErrorType>LoadInfo</ErrorType>
+        <Message>string</Message>
+        <MessageDetail>string</MessageDetail>
+        <ErrorCode>0</ErrorCode>
+        <Parram>string</Parram>
+      </objResultMessage>
+      <strProductComboID>string</strProductComboID>
+    </GetProductComboProductByComboID>
+  </soap:Body>
+</soap:Envelope>

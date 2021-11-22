@@ -1,0 +1,73 @@
+Params: productid, siteid, lang
+Language: sql
+##########################
+select
+	productid,producturl,'' as productcode,isonlineonly,
+    isdeleted,userguidepdf,createduser,strgallery,strgalleryallcolor,
+    mobile_simage as mobilesimage,mobile_mimage as mobilemimage,mobile_bimage as mobilebimage,
+    mobilestrgallery,htmlwarranty,htmlshipping,'' as currencyunitname,'' as promotioninfo,
+    if(eval('displayorder = 1 or displayorder = 0'),999,displayorder) as displayorder,
+    categoryid,ratecount,lastestgenerate,createddate,updateddate,totalreview,
+    ratescore,importeddate,ratingscore,0 as quantity,commentcount as comments,
+    isfeature,isfullwidth,0 as osid,'' as osname,likecount,specs,releasedate,
+    
+    $productlanguagebo:
+    {
+    	htmlmobile,productname,simage,mimage,bimage,
+        seoname,warrantyinfo,userguide,htmldescription,
+        purchasinginfo,ishot,isnew,shortdescription,
+        featureimage,scenario,scenariostartdate ,scenarioenddate,scenarioshowwebfromdate,scenarioshowwebtodate,templatealias,isevent,
+        expectedprice,advantage,disadvantage,general,
+        description,html,tooltip,url,keyword,metakeyword,
+        metadescription,metatitle,true as isexist,detailimage,
+        featurestartdate,featureexpiredate,ishearsay,isshowexpectedtext,
+        kitimagesmall,kitimagelarge,specificationimage,isnewsdetailversion,
+        templatefeature,ischeckconfirmconfig,htmlslidermobile,isshowhome,showhomedisplayorder,
+        
+        showhomestartdate,showhomeenddate,shortname,iscollection,isshowweb,collectionid,collectionproductcount,generalkeyword,
+          isrepresentproduct,representproductid,isreferaccessory,siteid,languageid
+    } as productlanguagebo,
+    
+    $productcategorylangbo:
+    {
+    	categoryname,parentid
+    } as productcategorylangbo,
+    
+    $productcategorybo:
+    {
+    	categoryid,true as isexist
+    } as productcategorybo,
+    
+    $productmanubo:
+    {
+    	manufacturerid as manufactureid,categoryid
+    } as productmanubo,
+    
+    $productmanulangbo:
+    {
+    	manufacturername,smalllogo,displayorder as manudisplayorder,
+        keyword,metadescription,metakeyword,metatitle,seoname,url,
+        manufacturerid
+    } as productmanulangbo,
+    
+    $productcategorylangbo:
+    {
+    	metakeyword,metadescription,metatitle,url,
+        seoname,true as isexist,categoryname,keyword
+    } as productcategorylangbo
+from
+	product
+let
+	$productlanguagebo = out('e_product_lang')[siteid =:siteid and languageid = 'vi-VN'],
+    $productcategorybo = out('e_product_category'),
+	$productcategorylangbo = $productcategorybo.out('e_category_lang')[isactived = 1 and isdeleted = 0 and siteid = :siteid and languageid = 'vi-VN'],
+    $productmanubo = out('e_product_manu')[isactived = 1 and isdeleted = 0],
+    $productmanulangbo = $productmanubo.out('e_manu_lang')[siteid = :siteid and languageid = 'vi-VN']
+where
+	productid = :productid
+    
+    
+    
+    
+    
+    

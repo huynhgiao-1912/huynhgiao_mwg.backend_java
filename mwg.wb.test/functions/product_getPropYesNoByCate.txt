@@ -1,0 +1,47 @@
+Params: categoryid, siteid, languageid
+Language: sql
+##########################
+/*
+	Lấy ra yesno prop
+    Creator : Nguyễn Văn Trung
+    Date	: 20191004
+    
+    categoryid: 42
+    siteid: 1
+    languageid: vi-VN
+    
+    oracle: PRODUCT_PROP_YESNO_BYCAT
+*/
+let $siteid = fn_getSharedSiteID(:siteid);
+select
+	expand(proplang)
+from
+(
+    select
+        $proplang[0]:
+        {
+          propertyid,
+          propertyname, displayorder, metatitle,
+          metadescription,null as smoothurl      
+        } as proplang
+    from
+        product_prop
+    let
+        $proplang = out('e_product_prop_lang')[isdeleted = 0 and isactived = 1 and siteid = $siteid and languageid = 'vi-VN' and         issearch = 1] 
+    where
+        groupid in
+        (  
+            select
+                groupid
+            from
+            (
+              select
+                  groupid,
+                  out('e_product_propgrp_lang')[isdeleted = 0 and isactived = 1 and siteid = $siteid and languageid = 							  :languageid][0] as rid
+              from
+                  product_propgrp
+              where
+                  categoryid = :categoryid
+            ) where rid is not null
+        )
+) where proplang is not null   

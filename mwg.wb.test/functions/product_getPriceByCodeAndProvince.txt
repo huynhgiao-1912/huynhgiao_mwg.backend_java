@@ -1,0 +1,83 @@
+Params: productcode, provinceid, siteid
+Language: sql
+##########################
+/*
+	Lấy giá theo code và tỉnh thành
+    Creator : Nguyễn Văn Trung
+    Date	: 20190904
+    
+   	productcode:  0130018000348
+    provinceid: 3
+*/
+select
+	$pricebo:{
+     ispriceconfirm
+       ,islimitproduct
+       ,vituralquantity1
+       ,standardsaleprice
+       ,productid
+       ,outofstock
+       ,isedited
+       ,pricearea
+       ,minstock
+       ,storeid
+       ,onlineareasaleprice
+       ,provinceid
+       ,companyid
+       ,districtid
+       ,statusid
+       ,outofstockwarningquantity
+       ,price
+       ,ispriceofstore
+       ,isonlineonly
+       ,deliverytype
+       ,outputtype
+       ,refprice
+       ,islimit
+       ,netprice
+       ,maxprice
+       ,isselected
+       ,centerquantity
+       ,deliveryvehicles
+       ,samplequantity1
+       ,outofstockdate
+       ,luckyvalue
+       ,updatedpricedate
+       ,isshowhome
+       ,productarrivaldate
+       ,isshowweb
+       ,productcode
+       ,isbestselling
+       ,luckytoprice
+       ,isproductforthcoming
+       ,luckyfromprice
+       ,isrequestimei
+       ,onlineprice
+       ,productcodetotalquantity
+       ,arrivaldate
+       ,webminstock
+       ,standardpriceareasaleprice
+       ,iswebshow
+       ,rownumber
+       ,isinputstore
+       ,categoryid
+       ,isforthcoming
+       ,quantity
+       ,standardkit
+       ,productcodequantity
+       ,totalquantity
+       ,recordid
+       ,issalestore
+       ,hisprice
+       ,webstatusid
+       ,quantityunit
+       ,isbooking
+       ,isonlyonline
+       ,isexist
+    } as price
+from
+	pm_product
+let
+	$pricebo = out('e_code_price')[provinceid = :provinceid][0]
+where
+	productid = :productcode

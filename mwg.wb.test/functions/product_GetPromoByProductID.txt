@@ -1,0 +1,25 @@
+Params: productid, siteid
+Language: sql
+##########################
+/*
+	Lấy promotion theo productid
+    Creator : Nguyễn Văn Trung
+    Date	: 20190808
+    
+   	productid: 202470
+    siteid: 1
+*/
+select
+	expand(promotion)
+from (
+  select
+      $promotion: {
+          recordid, promotionid, promotionlistgroupname, ispercentdiscount, discountvalue, begindate, enddate, productcodes, productids, productname, groupid, excludepromotion, promotionlistgroupid, notapplyforinstallment, provinceid, toprice, fromprice, isgiftprddiscount, quantitylist, quantitylists, returnvalue, isonline, discountvaluedisplay, ispercentdiscountdisplay, returnvalues, tovalue, fromvalue, maingroupid, isspecialprogram, homepagedescription, webshowpriority, ispercentdiscountsalelist, promotionpricelist, quantities, ischeapprice, promotiontype, isonlyforspecialsaleprogram, limitperproducttype, specialoutputtypecount, promotionoutputtypecount, siteid, saleprice, outputtypeid, productcode
+      } as promotion
+  from
+      pm_product
+  let
+      $promotion = out('e_code_promotion')[isdeleted =0 and siteid = :siteid and enddate > sysdate() and begindate < sysdate()]
+  where
+      productidref = :productid
+)

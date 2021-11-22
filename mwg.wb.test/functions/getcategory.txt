@@ -1,0 +1,8 @@
+Language: sql
+##########################
+select  categoryid  from product_category WHERE   
+SEARCH_CLASS("isactived:1 and isdeleted:0", {
+    "allowLeadingWildcard": true ,
+    "lowercaseExpandedTerms": false 
+   
+}) = true skip 0 limit 10  ;

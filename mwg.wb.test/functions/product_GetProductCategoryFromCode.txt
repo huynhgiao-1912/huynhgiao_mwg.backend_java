@@ -1,0 +1,17 @@
+Params: productcode
+Language: sql
+##########################
+/*
+	Nguyễn Thanh Phi
+	code 0131491001561
+*/
+
+select $product:
+{
+ categoryid,productid
+} as product
+from pm_product
+let
+	$product = in('e_product_code')[0]
+where 
+	productid= :productcode

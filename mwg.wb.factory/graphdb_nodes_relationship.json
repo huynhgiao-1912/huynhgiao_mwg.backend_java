@@ -1,0 +1,623 @@
+[
+	{
+ 
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product",
+		"edges": [
+			{
+				"edge": "e_product_manu",
+				"fromtable": "product",
+				"fromcol": "productid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_manu",
+				"tocol": "manufacturerid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "",
+				"dbtocol": "manufacturerid"
+			},
+			{
+				"edge": "e_product_category",
+				"fromtable": "product",
+				"fromcol": "productid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_category",
+				"tocol": "categoryid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "",
+				"dbtocol": "categoryid"
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_slider_videoslide",
+		"edges": [
+			{
+				"edge": "e_slider_slidervideo",
+				"fromtable": "product_slider",
+				"fromcol": "sliderid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_slider_videoslide",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "sliderid",
+				"dbtocol": ""
+			},
+			{
+				"edge": "e_slidervideo_video",
+				"fromtable": "product_slider_videoslide",
+				"fromcol": "recordid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_videoslide",
+				"tocol": "videoid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "",
+				"dbtocol": "videoid"
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_gallery_360",
+		"edges": [
+			{
+				"edge": "e_productgallery_360",
+				"fromtable": "product",
+				"fromcol": "productid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_gallery_360",
+				"tocol": "pictureid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "productid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "html_info_lang",
+		"edges": [
+			{
+				"edge": "e_htmlinfo_lang",
+				"fromtable": "html_info",
+				"fromcol": "htmlid",
+				"fromcoltype": "INTEGER",
+				"totable": "html_info_lang",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "htmlid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_slider",
+		"edges": [
+			{
+				"edge": "e_product_slider",
+				"fromtable": "product",
+				"fromcol": "productid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_slider",
+				"tocol": "sliderid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "productid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_gallery",
+		"edges": [
+			{
+				"edge": "e_product_gallery",
+				"fromtable": "product",
+				"fromcol": "productid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_gallery",
+				"tocol": "pictureid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "productid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_color_lang",
+		"edges": [
+			{
+				"edge": "e_product_color_lang",
+				"fromtable": "product_color",
+				"fromcol": "colorid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_color_lang",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "colorid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_pricerange_lang",
+		"edges": [
+			{
+				"edge": "e_pricerange_lang",
+				"fromtable": "product_pricerange",
+				"fromcol": "rangeid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_pricerange_lang",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "rangeid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_propvalue_lang",
+		"edges": [
+			{
+				"edge": "e_product_propvalue_lang",
+				"fromtable": "product_propvalue",
+				"fromcol": "valueid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_propvalue_lang",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "valueid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_propvalue",
+		"edges": [
+			{
+				"edge": "e_product_prop_value",
+				"fromtable": "product_prop",
+				"fromcol": "propertyid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_propvalue",
+				"tocol": "valueid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "propertyid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_language",
+		"edges": [
+			{
+				"edge": "e_product_lang",
+				"fromtable": "product",
+				"fromcol": "productid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_language",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "productid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_old_detail",
+		"edges": [
+			{
+				"edge": "e_productold_code",
+				"fromtable": "product_old_detail",
+				"fromcol": "oldid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_old_code",
+				"tocol": "productcode",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "",
+				"dbtocol": "productcode"
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_detail",
+		"edges": [
+			{
+				"edge": "e_product_detail",
+				"fromtable": "product",
+				"fromcol": "productid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_detail",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "productid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_manu_lang",
+		"edges": [
+			{
+				"edge": "e_manu_lang",
+				"fromtable": "product_manu",
+				"fromcol": "manufacturerid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_manu_lang",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "manufacturerid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_category_lang",
+		"edges": [
+			{
+				"edge": "e_category_lang",
+				"fromtable": "product_category",
+				"fromcol": "categoryid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_category_lang",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "categoryid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "erp",
+		"dbtable": "",
+		"table": "pm_currentinstock",
+		"edges": [
+			{
+				"edge": "e_code_stock",
+				"fromtable": "pm_product",
+				"fromcol": "productid",
+				"fromcoltype": "STRING",
+				"totable": "pm_currentinstock",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "productid",
+				"dbtocol": ""
+			},
+			{
+				"edge": "e_stock_store",
+				"fromtable": "pm_currentinstock",
+				"fromcol": "recordid",
+				"fromcoltype": "INTEGER",
+				"totable": "pm_store",
+				"tocol": "storeid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "",
+				"dbtocol": "storeid"
+			}
+		]
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "pm_product",
+		"edges": [
+			{
+				"edge": "e_product_code",
+				"fromtable": "product",
+				"fromcol": "productid",
+				"fromcoltype": "INTEGER",
+				"totable": "pm_product",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "productidref",
+				"dbtocol": ""
+			},
+			{
+				"edge": "e_code_color",
+				"fromtable": "pm_product",
+				"fromcol": "recordid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_color",
+				"tocol": "colorid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "",
+				"dbtocol": "productcolorid"
+			}
+		]
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "pm_store",
+		"edges": [
+			{
+				"edge": "e_store_district",
+				"fromtable": "pm_store",
+				"fromcol": "storeid",
+				"fromcoltype": "INTEGER",
+				"totable": "gen_district",
+				"tocol": "districtid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "",
+				"dbtocol": "districtid"
+			},
+			{
+				"edge": "e_store_province",
+				"fromtable": "pm_store",
+				"fromcol": "storeid",
+				"fromcoltype": "INTEGER",
+				"totable": "gen_province",
+				"tocol": "provinceid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "",
+				"dbtocol": "provinceid"
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "banners_place_province",
+		"edges": [
+			{
+				"edge": "e_banners_place_province",
+				"fromtable": "banners",
+				"fromcol": "bannerid",
+				"fromcoltype": "INTEGER",
+				"totable": "banners_place_province",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "bannerid",
+				"dbtocol": ""
+			},
+			{
+				"edge": "e_bannerplaces_place_province",
+				"fromtable": "banner_places",
+				"fromcol": "bannerplaceid",
+				"fromcoltype": "INTEGER",
+				"totable": "banners_place_province",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "placeid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "banners_place_cat_manu",
+		"edges": [
+			{
+				"edge": "e_banners_place_cat_manu",
+				"fromtable": "banners",
+				"fromcol": "bannerid",
+				"fromcoltype": "INTEGER",
+				"totable": "banners_place_cat_manu",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "bannerid",
+				"dbtocol": ""
+			},
+			{
+				"edge": "e_bannerplaces_place_cat_manu",
+				"fromtable": "banner_places",
+				"fromcol": "bannerplaceid",
+				"fromcoltype": "INTEGER",
+				"totable": "banners_place_cat_manu",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "placeid",
+				"dbtocol": ""
+			}
+		]
+	},
+	{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "banners_place_cat",
+		"edges": [
+			{
+				"edge": "e_banners_place_cat",
+				"fromtable": "banners",
+				"fromcol": "bannerid",
+				"fromcoltype": "INTEGER",
+				"totable": "banners_place_cat",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "bannerid",
+				"dbtocol": ""
+			},
+			{
+				"edge": "e_bannerplaces_place_cat",
+				"fromtable": "banner_places",
+				"fromcol": "bannerplaceid",
+				"fromcoltype": "INTEGER",
+				"totable": "banners_place_cat",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "placeid",
+				"dbtocol": ""
+			}
+		]
+	},
+	
+		{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_prop_lang",
+		"edges": [
+			{
+				"edge": "e_product_prop_lang",
+				"fromtable": "product_prop",
+				"fromcol": "propertyid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_prop_lang",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "recordid",
+				"dbtocol": ""
+			} 
+		]
+	},
+			{
+		"dbschema": "",
+		"dbtable": "",
+		"table": "product_propgrp_lang",
+		"edges": [
+			{
+				"edge": "e_product_propgrp_lang",
+				"fromtable": "product_propgrp",
+				"fromcol": "groupid",
+				"fromcoltype": "INTEGER",
+				"totable": "product_propgrp_lang",
+				"tocol": "recordid",
+				"tocoltype": "INTEGER",
+				"dbfromcol": "recordid",
+				"dbtocol": ""
+			} 
+		]
+	},
+	
+	{
+		"dbschema": "erp",
+		"dbtable": "",
+		"table": "pm_specialsaleprogram_subgroup"
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "pm_product_productstatus"
+	},
+	{
+		"dbschema": "erp",
+		"dbtable": "",
+		"table": "pm_specialsaleprogram_brand"
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "pr_priceparameter"
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "pm_item_exchangequantityunit"
+	},
+	{
+		"dbschema": "erp",
+		"dbtable": "",
+		"table": "pm_saleorder_locking"
+	},
+	{
+		"dbschema": "erp",
+		"dbtable": "",
+		"table": "pm_warrantymonthbyproduct"
+	},
+		{
+		"dbschema": "erp",
+		"dbtable": "",
+		"table": "pm_warrantymonthbysubgroup"
+	},
+	
+	{
+		"dbschema": "webcap",
+		"dbtable": "pm_currentinstock",
+		"table": "pm_currentinstock_bhx"
+	},
+	{
+		"dbschema": "webcap",
+		"dbtable": "",
+		"table": "cmt_comment_sta"
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "pm_quantityunit"
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "pm_store_pm_maingroup"
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "pm_item"
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "gen_province"
+	},
+	{
+		"dbschema": "erp",
+		"dbtable": "",
+		"table": "pm_specialsaleprogram"
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "system_user"
+	},
+	{
+		"dbschema": "erp",
+		"dbtable": "",
+		"table": "pm_specialsaleprogram_invstt"
+	},
+	{
+		"dbschema": "erp",
+		"dbtable": "",
+		"table": "pm_specialsaleprogram_product"
+	},
+	{
+		"dbschema": "crm",
+		"dbtable": "",
+		"table": "crm_productlocking"
+	},
+	{
+		"dbschema": "crm",
+		"dbtable": "",
+		"table": "crm_pmstore_partner"
+	}, 
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "gen_district"
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "gen_ward"
+	},
+	{
+		"dbschema": "masterdata",
+		"dbtable": "",
+		"table": "gen_store_ward_distance"
+	}
+]

@@ -1,0 +1,28 @@
+Params: productid, brandid, provinceid
+Language: sql
+##########################
+ 
+  select 
+ set(storeid),
+ provinceid,
+ sum(quantity) as quantity,
+    sum(centerquantity) as centerquantity,
+    sum(productcodequantity) as productcodequantity,
+   webminstock,
+ productid as productcode
+ 
+ from (
+ select  
+   out('e_stock_store').storeid as storeid, 
+  out('e_stock_store')[0].provinceid as provinceid, 
+   /*$store.provinceid as provinceid,*/
+    quantity,productid,centerquantity,productcodequantity,webminstock
+ from
+ 
+ index: idx_pm_currentinstock_inventorystatusid_storeid_productid_quantity
+  
+ where     key BETWEEN [1d,1d,:productid,1d]  and [1d,1000d,:productid,100000d]  
+  
+)
+   
+   group by provinceid   

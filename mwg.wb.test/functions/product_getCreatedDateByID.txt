@@ -1,0 +1,8 @@
+Params: productid
+Language: sql
+##########################
+select
+	createddate
+from product
+where
+	productid = :productid

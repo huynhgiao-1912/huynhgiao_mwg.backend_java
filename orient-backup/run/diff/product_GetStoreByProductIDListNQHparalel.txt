@@ -1,0 +1,17 @@
+Language: sql
+##########################
+ select list(storeid) from (
+	select 
+       
+      brandid,provinceid,
+           storeid,
+             (quantity - (scorderlockquantity + lockquantity + pcorderlockquantity + warrantydeactivequantity + storechangequantity + statuslockquantity)) as quantity 
+      from pm_currentinstock
+      where productid in (select    productid from   pm_product  where  productidref =101850 limit 100 )
+and  brandid=1 
+ and provinceid=3 
+and quantity > 0 
+ 
+ 
+
+limit 500 )

@@ -1,0 +1,35 @@
+Params: keyword, categoryid, pageindex, pagesize
+Language: sql
+##########################
+LET $keyword="categoryid:60^10000 OR (keyword:("+parserAnd(:keyword)+") OR  productname:("+parserAnd(:keyword)+")^10)";
+LET $a=SELECT  productid,categoryid ,
+if(eval("categoryid=42"),1000,0)+$score as scoretong
+FROM product WHERE 
+
+SEARCH_CLASS($keyword, {
+    "allowLeadingWildcard": true ,
+    "lowercaseExpandedTerms": false,
+    "boost": {
+        "productname": 50,
+      "keyword": 1
+    } 
+}) = true  order by scoretong desc;
+
+ 
+LET $o =:pagesize*(:pageindex-1);
+LET $c=  select categoryid,count(productid) as count,min(categoryid) as mian from $a group by categoryid ; 
+LET $b= select productid  from $a  skip 0 limit 10;
+LET $d= select count( productid ) from $a  ;
+let $product = select  productid,
+productname,
+  keyword,
+out('e_product_manu').manufacturername,/*tương đương join 2 table */
+out('e_product_category').categoryname, /*tương đương join 2 table */
+out('e_product_lang').include('productname','siteid'),/*tương đương join 2 table */
+out('e_product_code').productid  ,/*tương đương join 2 table */
+out('e_product_manu').out('e_manu_lang').include('manufacturerid', 'manufacturername' ) , /*tương đương join 3 table */
+  out('e_product_category').out('e_category_lang').include('categoryid', 'categoryname' )/*tương đương join 3 table */
+
+from product 
+where productid in $b.productid;
+return  (select $d as total , $product as productlist, $c as catelist);

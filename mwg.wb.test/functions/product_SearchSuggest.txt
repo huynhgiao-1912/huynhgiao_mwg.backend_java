@@ -1,0 +1,34 @@
+Params: keyword
+Language: sql
+##########################
+LET $keyword="categoryid:60^10000 OR (keyword:("+parserAnd(:keyword)+") OR  productname:("+parserAnd(:keyword)+")^10)";
+LET $a=SELECT  productid,categoryid 
+FROM product WHERE 
+
+SEARCH_CLASS($keyword, {
+    "allowLeadingWildcard": true ,
+    "lowercaseExpandedTerms": false,
+    "boost": {
+        "productname": 50,
+      "keyword": 1
+    } 
+}) = true  skip 0 limit 10 ;
+
+ 
+ 
+/*  LET $c=[];  select categoryid,count(productid) as count  from $a group by categoryid ;  */
+/*LET $b= select productid  from $a  skip 0 limit 10; */
+ 
+let $product = select  productid,
+productname,
+  keyword,
+out('e_product_manu').manufacturername,/*tương đương join 2 table */
+out('e_product_category').categoryname, /*tương đương join 2 table */
+out('e_product_lang').include('productname','siteid'),/*tương đương join 2 table */
+out('e_product_code').productid  ,/*tương đương join 2 table */
+out('e_product_manu').out('e_manu_lang').include('manufacturerid', 'manufacturername' ) , /*tương đương join 3 table */
+  out('e_product_category').out('e_category_lang').include('categoryid', 'categoryname' )/*tương đương join 3 table */
+
+from product 
+where productid in $a.productid;
+return  (select  $product as productlist );

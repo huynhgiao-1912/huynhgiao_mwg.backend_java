@@ -1,0 +1,15 @@
+Params: productcode, provinceid, brandid, districtid
+Language: sql
+##########################
+ select  
+   set(storeid )
+    from  
+   (
+ select EXPAND(rid) from 
+ index: pm_currentinstock.productid_inventorystatusid_quantity
+  
+ where     key BETWEEN ['0131491001561',1d, 1d]  and ['0131491001561',1d, 1000d]  limit  1000
+   )
+   where (quantity - (scorderlockquantity + lockquantity + pcorderlockquantity + warrantydeactivequantity + storechangequantity + statuslockquantity)) > 0
+   
+ 

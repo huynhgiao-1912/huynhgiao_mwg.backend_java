@@ -1,0 +1,36 @@
+Params: productcode, storeid
+Language: sql
+##########################
+/*
+	Lấy tồn kho theo siêu thị
+    creator : Nguyễn Văn Trung
+    Date	: 20190801
+    
+    productid: 3002125000400       
+    storeid: 912
+*/
+let $store=
+select
+	storeid, provinceid, districtid,
+    storename,storeaddress,  webstorename as storefullname,
+     orderindex as storesort,
+       brandid as isdefault,
+        webaddress, lat,lng,storeshortname,storetypeid,
+         openingday,isshowweb,reopendate
+from
+	pm_store
+where
+	storeid = :storeid;
+ 
+let $stock =
+select
+      productid,
+	(quantity - (scorderlockquantity + lockquantity + pcorderlockquantity + warrantydeactivequantity + storechangequantity + statuslockquantity)) as quantity
+from
+	pm_currentinstock
+where
+	productid = :productcode
+    and storeid = :storeid
+    and inventorystatusid = 1;
+
+select unionall ($store,$stock) as stockstore;

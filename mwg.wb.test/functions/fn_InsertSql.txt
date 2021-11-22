@@ -1,0 +1,23 @@
+Params: sql
+Language: javascript
+##########################
+ 
+var db = orient.getDatabase(); 
+      db.begin();
+   // db.begin(com.orientechnologies.orient.core.tx.OTransaction.TXTYPE.OPTIMISTIC);
+      try{
+        // var result = db.command("update test set id=4,name='aaa4' upsert where id=4"  );
+        var result = db.command(sql );
+         // var result2 = db.command("update testsd set id=3,name='aaa3' upsert where id=3"  );
+        // var result = db.save({ "@class" : "OUser", name : "Luca", password : "Luc4", status: "ACTIVE", roles : role});
+          db.commit();
+        // 
+         return "1";
+      }catch ( err ){
+        db.rollback();
+        db.reload();
+         return  sql +err.toString() ;
+      } finally{
+  
+}
+ 

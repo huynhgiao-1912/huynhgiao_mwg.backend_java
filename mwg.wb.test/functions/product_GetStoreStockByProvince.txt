@@ -1,0 +1,30 @@
+Params: productcode, provinceid, from, pagesize
+Language: sql
+##########################
+/*
+	Lấy siêu thị tồn kho theo tỉnh thành
+    creator : Dương Hồng Ân
+    Date	: 20190808
+    
+    productcode: 0131491001467
+    provinceid: 3
+*/
+let $result =
+(
+select
+    $store:
+    {
+    	createddate, openingday, reopendate, storeid, areaid, storename, storeaddress, storemanager, storephonenum, storeshortname, provinceid, storefax, iscenterstore, taxcode, isdeleted as isdelete, deleteduser as userdelete, deleteddate as datedelete, isrealstore, issalestore, isinputstore, companynameprefix, storetypeid, orderindex, storegroupid, iswarrantystore, isactive, note, isautostorechange, storecode, taxaddress, priceareaid, issystem, openhour, lat, isexist, lng, storeemail, storefullname, imagemapsmall, imagemaplarge, siteid, webstorename, districtid, companyid, companytitle, provincename, districtname, districtindex, displayorder, rank, isshowweb, webstoreimage, webaddress, $parent.$current.quantity as quantity, centerquantity, bcnbstorename, bcnbareaid, bcnbprovinceid, isshowbcnb, samplequantity, replaceprdquantity, productcode
+    } as store
+from
+	pm_currentinstock
+let
+	$store = out('e_stock_store')[0]
+where
+	productid = :productcode
+    and $store.provinceid = :provinceid
+    and inventorystatusid = 1
+skip :from limit :pagesize
+);
+let $count = (select count() as c from pm_currentinstock let $store = out('e_stock_store')[0] where productid = :productcode and $store.provinceid = :provinceid and inventorystatusid = 1);
+return (select $count[0].c as count, $result as result);

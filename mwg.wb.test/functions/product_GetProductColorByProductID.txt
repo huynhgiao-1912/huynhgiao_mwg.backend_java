@@ -1,0 +1,24 @@
+Params: productid
+Language: sql
+##########################
+/*
+	Lấy màu sản phẩm
+    Creator : Dương Hồng Ân
+    Date	: 20190910
+    
+    productid: 209336
+*/
+select
+	expand(color)
+from (
+	select
+		$productcolor: {
+			colorid, colorname, colorcode, isactived, activeduser, activeddate, activeduser, isdeleted, deleteddate, deleteduser, createddate, createduser, updateddate, updateduser, icon, true as isexist
+		} as color
+	from
+		pm_product
+	let
+		$productcolor = out('e_code_color')
+	where
+		productidref = :productid
+)

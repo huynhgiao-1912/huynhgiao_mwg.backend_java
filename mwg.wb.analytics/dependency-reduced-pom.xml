@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>mwg.rcm</groupId>
+  <artifactId>mwg.rcm.flink</artifactId>
+  <name>mwg.rcm.flink</name>
+  <version>0.1</version>
+  <url>http://www.myorganization.org</url>
+  <build>
+    <finalName>rcmstream</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <artifactSet />
+              <transformers>
+                <transformer>
+                  <resource>reference.conf</resource>
+                </transformer>
+                <transformer>
+                  <manifestEntries>
+                    <Main-Class>com.mwg.wb.rcm.flink.StreamingJob</Main-Class>
+                    <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
+                    <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
+                  </manifestEntries>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots />
+      <id>apache.snapshots</id>
+      <name>Apache Development Snapshot Repository</name>
+      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+    </repository>
+  </repositories>
+  <properties>
+    <flink.version>1.11.1</flink.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+</project>
+

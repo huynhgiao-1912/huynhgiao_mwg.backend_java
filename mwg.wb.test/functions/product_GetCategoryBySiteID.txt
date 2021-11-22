@@ -1,0 +1,12 @@
+Params: siteid, lang
+Language: sql
+##########################
+select
+ categoryid, seoname as categoryseoname, languageid, isaccessory, simage, bimage, mimage, isproductcategory, isdisplaygroup, keyword as keywordlist, displayorder, categoryname, url as categoryurl
+from
+ product_category_lang
+where
+ siteid = :siteid
+    and languageid = :lang
+    and isactived = 1
+    and isdeleted = 0

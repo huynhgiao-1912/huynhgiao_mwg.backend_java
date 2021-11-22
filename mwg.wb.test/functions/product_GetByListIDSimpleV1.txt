@@ -1,0 +1,27 @@
+Params: listid, siteid, provinceid, lang
+Language: sql
+##########################
+/*
+	Lấy thông tin SP đơn giản theo list ID
+    Creator : Dương Hồng Ân
+    Date	: 20190903
+    
+    productid: 196963,144115
+    siteid: 12
+    provinceid: 3
+    languageid: vi-VN
+*/
+select
+	productid, productname, categoryid, $price as price, $promotions: {
+		recordid, promotionid, promotionlistgroupname, productcode
+	} as promotion, 
+      $productgallery:{ pictureid, mobile_picture, picture_large, picture_org, 
+        picture_thumbnai, ifnull(picture_thumbnail,picture_org) as picture } as productgallery
+from
+	product
+let
+	$price = out('e_product_code').out('e_code_price')[provinceid = :provinceid].price[0],
+	$promotions = out('e_product_code').out('e_code_promotion')[isdeleted =0 and siteid = :siteid and provinceid = :provinceid],
+	$productgallery = out('e_product_gallery')[isactived = 1 and isdeleted = 0 and siteid = :siteid]
+where
+	productid in :listid

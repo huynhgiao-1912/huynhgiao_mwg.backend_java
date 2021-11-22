@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>tgdd.vn</groupId>
+    <artifactId>mwg.backend-java</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <modules>
+        <module>monitor.wb</module>
+        <module>mwg.mavenparent</module>
+        <module>mwg.tool.apichecker</module>
+        <!-- <module>mwg.wb.analytics</module> -->
+        <!-- <module>mwg.wb.business</module> -->
+        <!-- <module>mwg.wb.client</module> -->
+        <!-- <module>mwg.wb.common</module> -->
+        <module>mwg.wb.factory</module>
+        <module>mwg.wb.injection</module>
+        <!-- <module>mwg.wb.model</module> -->
+        <module>mwg.wb.pkg.common</module>
+        <module>mwg.wb.pkg.cook</module>
+        <module>mwg.wb.pkg.gameapp</module>
+        <module>mwg.wb.pkg.news</module>
+        <module>mwg.wb.pkg.price</module>
+        <module>mwg.wb.pkg.productold</module>
+        <module>mwg.wb.pkg.productse</module>
+        <module>mwg.wb.pkg.promotion</module>
+        <module>mwg.wb.pkg.sim</module>
+        <module>mwg.wb.pkg.tracking</module>
+        <module>mwg.wb.pkg.upsert</module>
+        <module>mwg.wb.pkg.validate</module>
+        <module>mwg.wb.test</module>
+        <module>mwg.wb.webapi</module>
+        <module>mwg.wb.webservice</module>
+    </modules>
+
+</project>

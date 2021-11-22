@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "mwg.wb.injection.Main",
+            "projectName": "mwg.wb.injection"
+        }
+    ]
+}

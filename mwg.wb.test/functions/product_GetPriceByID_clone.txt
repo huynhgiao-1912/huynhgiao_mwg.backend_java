@@ -1,0 +1,18 @@
+Params: productid
+Language: sql
+##########################
+/*
+	Lấy giá theo productid web
+    Creator : Nguyễn Văn Trung
+    Date	: 20190802
+    
+    productid: 87846
+*/
+select
+   expand(out('e_code_price'))
+from
+	pm_product
+where
+	productidref = :productid
+    and isactived = 1
+	and isdeleted = 0 limit 1

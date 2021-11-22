@@ -1,0 +1,20 @@
+Params: productid, brandid, provinceid, recordid, siteid, langid
+Language: sql
+##########################
+Let $storelist=(
+select  list(storeid) as storelist from (
+	select 
+       
+      brandid,provinceid,
+           storeid,
+             (quantity - (scorderlockquantity + lockquantity + pcorderlockquantity + warrantydeactivequantity + storechangequantity + statuslockquantity)) as quantity 
+      from pm_currentinstock
+      where productid in (select    productid from   pm_product  where  productidref =:productid limit 100 )
+and  brandid=:brandid
+ and provinceid=:provinceid
+and quantity > 0  
+limit 500 ))   ;
+
+update product_store set siteid=:siteid,langid=:langid, productid=:productid,brandid=:brandid,provinceid=:provinceid,storelist=$storelist.storelist   upsert where recordid=:recordid ;
+ 
+   

@@ -1,0 +1,1107 @@
+Fri Nov 01 11:01:12 ICT 2019:main:java.lang.NullPointerException
+	at mwg.wb.client.service.ErpHelper.CallService(ErpHelper.java:91)
+	at mwg.wb.client.service.ErpHelper.GetPromotionByPrdIDStr(ErpHelper.java:219)
+	at mwg.wb.test.Main.testPromotion(Main.java:207)
+	at mwg.wb.test.Main.main(Main.java:212)
+
+
+Wed Nov 06 09:12:29 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:14:18 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:14:36 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:14:45 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:14:54 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:15:02 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:15:11 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:15:19 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:15:28 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:15:39 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:15:49 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:15:57 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:16:10 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:16:22 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:16:58 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:17:06 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:17:14 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:17:22 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:17:29 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:17:36 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:17:46 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:17:55 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:18:02 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:18:11 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:18:19 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:18:29 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:18:39 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:18:46 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:18:54 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:19:01 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:19:08 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:19:16 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:20:00 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:20:09 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:20:20 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:20:30 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:20:39 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:20:47 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:20:54 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:21:01 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:21:09 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:21:16 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:21:26 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+
+Wed Nov 06 09:21:36 ICT 2019:main:com.orientechnologies.common.io.OIOException
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:346)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationRetryTimeout(OStorageRemote.java:227)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.networkOperationNoRetry(OStorageRemote.java:257)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.command(OStorageRemote.java:959)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentRemote.command(ODatabaseDocumentRemote.java:422)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.lambda$querySql$4(OrientGraph.java:283)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.executeWithConnectionCheck(OrientGraph.java:205)
+	at org.apache.tinkerpop.gremlin.orientdb.OrientGraph.querySql(OrientGraph.java:281)
+	at mwg.wb.client.graph.ORThreadLocal.QueryFunction(ORThreadLocal.java:452)
+	at mwg.wb.business.PriceHelper.GetListPriceByBySiteID(PriceHelper.java:162)
+	at mwg.wb.test.Main.testPriceError(Main.java:455)
+	at mwg.wb.test.Main.main(Main.java:215)
+Caused by: java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at com.orientechnologies.orient.enterprise.channel.binary.OChannelBinary.readBytes(OChannelBinary.java:163)
+	at com.orientechnologies.orient.core.serialization.serializer.result.binary.OResultSerializerNetwork.fromStream(OResultSerializerNetwork.java:657)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readProjection(OMessageHelper.java:503)
+	at com.orientechnologies.orient.client.remote.message.OMessageHelper.readResult(OMessageHelper.java:471)
+	at com.orientechnologies.orient.client.remote.message.OQueryResponse.read(OQueryResponse.java:73)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.lambda$networkOperationRetryTimeout$2(OStorageRemote.java:245)
+	at com.orientechnologies.orient.client.remote.OStorageRemote.baseNetworkOperation(OStorageRemote.java:303)
+	... 11 more
+
+

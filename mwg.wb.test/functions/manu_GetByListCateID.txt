@@ -1,0 +1,36 @@
+Params: categoryidlist, siteid, languageid
+Language: sql
+##########################
+let $lsid =fn_split(:categoryidlist );
+let $manucount = (
+select
+	sum(out('e_manu_lang')[siteid = 12 and languageid = 'vi-VN'].size()) as countmanu
+from 
+	product_manu
+where
+	isactived = 1
+    and isdeleted = 0
+    and categoryid in $lsid);
+select
+	$manucount[0].countmanu as manucount,
+	manufacturerid as manufactureid,categoryid,
+    $manulang:
+    {
+    	manufacturername,metadescription,metakeyword,metatitle,seoname,
+        biglogo,brandurl,description,servicecenter,smalllogo,
+        url,displayorder,timermetatile,timermetadescription,timermetakeyword,
+        timerfromdate,timertodate,companyidlist,countryidlist,countrynamelist,
+        keyword,isshowweb,oldmetatitle,oldmetadescription,newslink
+    } as manulang
+      
+from
+	product_manu
+let
+	$manulang = out('e_manu_lang')[siteid = :siteid and languageid = :languageid]
+where
+	isactived = 1
+    and isdeleted = 0
+    and categoryid in $lsid
+    /*and manufacturerid in [1,2]*/
+skip 0
+limit 125

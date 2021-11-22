@@ -1,0 +1,10 @@
+Params: categoryid
+Language: sql
+##########################
+select 
+  min(in('e_product_category')[isactived = 1 and isdeleted = 0 and categoryid = :categoryid].productid) as minproductid,
+  max(in('e_product_category')[isactived = 1 and isdeleted = 0 and categoryid = :categoryid].productid) as maxproductid
+from 
+  	product_category
+where
+	categoryid = :categoryid

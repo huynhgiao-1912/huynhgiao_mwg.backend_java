@@ -1,0 +1,25 @@
+Params: productcode, provinceid, brandid, districtid
+Language: sql
+##########################
+ select 
+  
+ from (
+  select
+       storeid, provinceid, districtid,issalestore,
+          storename,storeaddress,  webstorename as storefullname,
+          orderindex as storesort,
+          brandid as isdefault,
+          webaddress, lat,lng,storeshortname,storetypeid,
+          openingday,isshowweb,reopendate
+  from
+      pm_store where storeid in (
+ select storeid from
+ ( 
+   select out('e_stock_store')[provinceid =3 and brandid = 10][0].storeid as storeid,productid,quantity,scorderlockquantity , lockquantity, pcorderlockquantity , warrantydeactivequantity ,storechangequantity ,statuslockquantity  from 
+   pm_currentinstock 
+   where   productid = :productcode  and  out('e_stock_store')[provinceid =:provinceid and brandid = :brandid  and (districtid =:districtid or :districtid < 1)].size()>0 
+ ) 
+ where  ( quantity - (scorderlockquantity + lockquantity + pcorderlockquantity + warrantydeactivequantity + storechangequantity + statuslockquantity)) > 0)  ) where issalestore=1
+ 
+  
+ 

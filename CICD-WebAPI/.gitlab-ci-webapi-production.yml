@@ -1,0 +1,1143 @@
+job-deploy-6:
+  stage: deploy-DC4-p1
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi6.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-6&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 2.6" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 2.6"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-6&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  # start_in: 1 minutes
+  when: manual
+  allow_failure: false
+  tags:
+  - javaapi6
+
+job-deploy-7:
+  stage: deploy-DC4-p1
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi7.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-7&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 2.7" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 2.7"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-7&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  # dependencies:
+  #   - job-deploy-6
+  when: manual
+  allow_failure: false
+  tags:
+    - javaapi7
+
+job-deploy-30:
+  stage: deploy-DC4-p2
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi30.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-30&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 2.30" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 2.30"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-30&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  allow_failure: false
+  dependencies:
+    - job-deploy-7
+  tags:
+    - javaapi30
+job-deploy-31:
+  stage: deploy-DC4-p2
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi31.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-31&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 2.31" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 2.31"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-31&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  #allow_failure: false
+  dependencies:
+    - job-deploy-7
+  tags:
+    - javaapi
+
+job-deploy-130:
+  stage: deploy-DC4-p3
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi130.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-130&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 26.130" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 26.130"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-130&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-31
+  tags:
+    - javaapi130
+job-deploy-131:
+  stage: deploy-DC4-p3
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi131.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-131&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 26.131" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 26.131"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-131&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-31
+  tags:
+    - javaapi131
+
+job-deploy-132:
+  stage: deploy-DC4-p4
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi132.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-132&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 26.132" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 26.132"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-132&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-131
+  tags:
+    - javaapi132
+job-deploy-133:
+  stage: deploy-DC4-p4
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi133.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-133&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 26.133" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 26.133"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-133&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-131
+  tags:
+    - javaapi133
+   
+
+
+job-deploy-8:
+  stage: deploy-DC2-p1
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi8.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-8&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 2.8" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 2.8"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-8&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  # start_in: 1 minutes
+  dependencies:
+    - job-deploy-133
+  tags:
+  - javaapi8
+
+job-deploy-9:
+  stage: deploy-DC2-p1
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi9.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-9&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 2.9" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 2.9"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-9&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-133
+  # when: manual
+  tags:
+    - javaapi9
+
+job-deploy-32:
+  stage: deploy-DC2-p2
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi32.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-32&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 2.32" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+         curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 2.32"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-32&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-9
+  tags:
+    - javaapi32
+job-deploy-56:
+  stage: deploy-DC2-p2
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi56.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-56&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 2.56" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 2.56"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w2-56&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-8
+  tags:
+    - javaapi56
+
+job-deploy-134:
+  stage: deploy-DC2-p3
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi134.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-134&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 26.134" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 26.134"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-134&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-56
+  tags:
+    - javaapi134
+job-deploy-135:
+  stage: deploy-DC2-p3
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi135.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-135&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 26.135" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 26.135"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-135&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-56
+  tags:
+    - javaapi135
+
+job-deploy-136:
+  stage: deploy-DC2-p4
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi136.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-136&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 26.136" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify  -H "Authorization: Bearer $BACKENDGROUP" -H "Content-Type: application/x-www-form-urlencoded" -d "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 26.136"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-136&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-135
+  tags:
+    - javaapi136
+
+
+job-deploy-137:
+  stage: deploy-DC2-p4
+  environment: production
+  script:
+   - cd mwg.wb.webapi
+   - mvn install:install-file -Dfile=KVClient.jar -DgroupId=com.oracle.kv -DartifactId=kvclient -Dversion=10 -Dpackaging=jar
+   - cd ..
+   - echo "1. building model,common,client,bussiness..."
+   - cd mwg.mavenparent
+   - mvn clean install
+  
+   - cd ..
+   - echo "2. build mswebapi..."
+   - echo "copy server config..."
+   - cp /data/webapi137.config/bootstrap.properties mwg.wb.webapi/src/main/resources
+   - cd mwg.wb.webapi
+   - echo "validate..."
+   - mvn validate
+   - echo "clean install ..."
+   - mvn clean install
+
+   - echo "build success ..."
+
+   - sudo sleep 30
+
+   - echo "Start Deploy Webapi..."
+
+   - echo "maint ha proxy!"
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-137&b=#5&action=maint" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+   - sudo sleep 10 
+
+   - sudo chmod -R 777 $WEBAPI_APP_DIR
+   - echo "stop tomcat..."
+   - sudo systemctl stop tomcat
+   - cd $WEBAPI_APP_DIR
+   
+   #backup old project
+   - cp  ROOT.war /opt/apibackup
+   - cp $CI_PROJECT_DIR/$WEBAPI_APP_NAME/target/mwg.wb.webapi-1.0-SNAPSHOT.war ROOT.war
+   - sudo chmod 777 $WEBAPI_APP_DIR/ROOT.war
+   - echo Restart service....
+   - sudo systemctl start tomcat
+   
+   - sudo sleep 30
+   - echo test....
+
+   - status_code=$(curl --head --write-out %{http_code} --silent --output /dev/null "http://localhost:2060/apicategory/getstorebyid?storeID=3077")
+   - >
+     if [[ "$status_code" -ne 200 ]] ; then
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[ERROR]: DEPLOY LIVE API FAILED => Server 26.137" -F "stickerPackageId=1"  -F "stickerId=403"
+          exit 0
+     else
+          curl -X POST https://notify-api.line.me/api/notify -H "Authorization: Bearer $BACKENDGROUP" -F "message=[INFO]: DEPLOY LIVE API SUCCESS => Server 26.137" -F "stickerPackageId=11539"  -F "stickerId=52114113"
+          curl --head "http://172.16.2.26/api/v2/webapi/apiproduct/getproduct?productID=198792&siteID=12&provinceID=3&lang=vi-VN"
+     fi
+
+   - echo Restart success
+   - sudo chmod -R 750 $WEBAPI_APP_DIR
+
+   - curl -u ha:proxy -H "Content-Type:text/plain" -d "s=w26-137&b=#5&action=ready" http://172.16.3.23:8001 http://172.16.3.23:8002 http://172.16.3.23:8003 http://172.16.3.23:8004
+
+  only:
+    refs:
+        - /^production-api-v.*$/
+  variables:
+    GIT_STRATEGY: fetch
+  dependencies:
+    - job-deploy-135
+  tags:
+    - javaapi137
+   
+
+

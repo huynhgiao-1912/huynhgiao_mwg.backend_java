@@ -1,0 +1,36 @@
+Params: provinceid, districtid, brandid
+Language: sql
+##########################
+/*
+	Tìm kiếm siêu thị theo ProvinceID | Districtid
+    creator : Văn Hạnh
+    Date	: 20190905
+    
+    provinceid: 3
+    districid: 29
+*/
+select
+from
+(
+select
+	storeid, provinceid, districtid,issalestore,
+    storename,storeaddress,  webstorename as storefullname,
+    orderindex as storesort,
+    brandid as isdefault,
+    webaddress, lat,lng,storeshortname,storetypeid,
+    openingday,isshowweb,reopendate,
+  	if(eval('brandid = 3'),openhour,ifnull($storeinfo.opentime,openhour) + " - " + $storeinfo.closingtime) as openhour
+  
+from
+	pm_store
+let
+  	$storeinfo = out('e_pm_store_info')[0]
+where
+    provinceid = :provinceid
+    /*and (districtid = :districtid or :districtid < 1)*/
+    and brandid = :brandid
+)
+where
+	(districtid = :districtid or :districtid < 1)
+ 
+

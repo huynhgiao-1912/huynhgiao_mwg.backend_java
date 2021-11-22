@@ -1,0 +1,52 @@
+Params: categoryid, siteid, languageid
+Language: sql
+##########################
+/*
+	Lấy danh sách value theo property list của ngành hàng
+    Creator : Nguyễn Văn Trung
+    Date	: 20191005
+    
+    oracle: PRODUCT_PROPVALUE_GETBYCATID
+*/
+let $siteid = fn_getSharedSiteID(:siteid);
+select
+	proplang.propertyid as propertyid, proplang.propertyname as propertyname, proplang.advisortext as advisortext, proplang.advisorlink as advisorlink, proplang.issuggestaccessoryprop as issuggestaccessoryprop, proplang.propissearch as issearch, proplang.propertyweight as propertyweight,
+	propvalue: {
+		propertyid, valueid, dmurl, issearch, propvaluelang.valuename as value, propvaluelang.displayorder as displayorder, propvaluelang.icon as icon, propvaluelang.description as description, propvaluelang.listsiteid as listsiteid, propvaluelang.metatitle as metatitle, propvaluelang.metadescription as metadescription, propvaluelang.shortname as shortname, propvaluelang.smoothurl as smoothurl, propvaluelang.isimportant as isimportant, propvaluelang.metakeyword as metakeyword, propvaluelang.isinitsearch as isinitsearch, propvaluelang.manunamelist as manunamelist  
+	} as productpropvaluebolst, displayorder
+from (
+	select
+		out('e_product_prop_lang')[isdeleted = 0 and isactived = 1 and siteid = $siteid and languageid = :languageid][0]:
+		{
+		  propertyid, propertyname, advisortext, advisorlink,
+		  /*propissearchtgdd, propissearchvuivui, propissearchdmx,*/
+		  issuggestaccessoryprop, propissearch, propertyweight
+		} as proplang,
+		  
+		out('e_product_prop_value')[isdeleted = 0 and isactived = 1]:
+		{
+		  propertyid, valueid, dmurl, issearch,
+		  out('e_product_propvalue_lang')[siteid = :siteid and languageid = :languageid][0]:
+		  {
+			valueid, value as valuename,
+			displayorder, icon, description, listsiteid,
+			metatitle, metadescription, shortname, smoothurl,
+			isimportant, metakeyword, isinitsearch, manunamelist  
+		  } as propvaluelang  
+		} as propvalue, displayorder
+	from
+		product_prop
+	where
+		propertyid in
+		(
+			select
+				expand(fn_split(listproperty))
+			from
+				product_category_lang
+			where
+				categoryid = :categoryid
+				and siteid = :siteid
+				and languageid = :languageid
+		)
+	order by displayorder asc
+)

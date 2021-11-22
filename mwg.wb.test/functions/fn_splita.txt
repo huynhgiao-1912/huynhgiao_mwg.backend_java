@@ -1,0 +1,6 @@
+Params: s
+Language: javascript
+##########################
+ 
+var res = s.trim().split("a");  
+return res;  

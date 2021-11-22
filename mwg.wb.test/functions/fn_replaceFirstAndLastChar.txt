@@ -1,0 +1,5 @@
+Params: str
+Language: javascript
+##########################
+var rs = str.slice(1,-1);
+return rs

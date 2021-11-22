@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mwg.wb.factory.109:
+    image: git.thegioididong.com:6666/web/mwg.backend-java:mwg.wb.factory-109
+    build: .
+    volumes:
+     - /etc/hostname:/etc/hostname
+
+  # volumes:
+   # workerconfig:
+    # driver: local
+    # driver_opts:
+      # device: /data/workerconfig
+      # o: bind
+    
+  

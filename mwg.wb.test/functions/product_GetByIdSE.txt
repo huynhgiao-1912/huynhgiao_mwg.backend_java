@@ -1,0 +1,61 @@
+Params: productid, siteid, lang
+Language: sql
+##########################
+select
+	productid, productname, siteid, languageid, scenario, scenarioshowwebfromdate, scenarioshowwebtodate, isshowhome, showhomedisplayorder, showhomestartdate, showhomeenddate, keyword, metakeyword, shortname, seoname, iscollection, isshowweb, collectionid, collectionproductcount, productcode, isrepresentproduct, representproductid, isreferaccessory, displayorder, createddate,
+	$productlang:
+    {
+     siteid,languageid,	
+      productname,description,tooltip,keyword,metakeyword,metatitle,url,general,simage,ishot,isnew,mimage,bimage,bimage as picture,
+        seoname, warrantyinfo, userguide,
+        featureimage, scenario, templatealias,
+        isevent,detailimage,shortdescription,expectedprice,comboproductidlist,
+        advantage,disadvantage,isshowexpectedprice,purchasinginfo,
+        featurestartdate,featureexpiredate,ishearsay,isshowexpectedtext,
+        kitimagesmall,kitimagelarge,specificationimage,
+        isnewsdetailversion,templatefeature,ischeckconfirmconfig,
+        topimage,scenariostartdate,scenarioenddate,scenarioshowwebfromdate,
+        scenarioshowwebtodate,iscollection,collectionid,collectionproductcount,
+        listrelatednewsid,listrelatedvideoid,brepresentimage,mrepresentimage,
+        srepresentimage,issmartphone,redirecturl,redirectfromdate,redirecttodate,
+        badgetype,badgestartdate,badgeenddate,shortname,iseasydeal,islandingpageondetail,
+        comboproductidlist,imagesize,timermetatile,timermetakeyword,
+        timerfromdate,timertodate,isshowweb,instocksiteidlist,dusermanual,
+        musermanual,isnotsale,notdeliverydistrictidlist,isrepresentproduct,
+        isreferaccessory,representproductid,showhomestartdate,provinceidlist,
+        detailshortname,northernproductname,detailsuggestdescription,searchsuggestdescription,
+        suggestfromdate,suggesttodate,combodiscountpercent,combopromotionidlist,
+        isshowfullstock,isshowhome,showhomedisplayorder,showhomeenddate,
+        desktopfeatureimage,listnewsid,ispreordercam,preordercamfromdate,
+        preordercamtodate,preordercaminfo,timerthumbmeta,timerfeatureimage,
+        timerfeaturefromdate,timerfeaturetodate,timerfeatureimagedesktop,
+        if(eval('$catelang.iswarrantyhome = 1'),1,$productlang.iswarrantyhome) as iswarrantyhome,
+        canonical,labelposition,labelcolor,webstatusid,timerthumbimage,timerthumbimagefromdate,
+        timerthumbimagetodate,combofromdate,combotodate,quantitypromotionid
+    } as  ProductLanguageBO,
+	$catelang:
+    {
+     	categoryid,	
+      categoryname,metakeyword as catmetakeyword, 
+        metatitle as catmetatitle, url as categoryurl, keyword as catkeyword,
+        seoname as categoryseoname,displayorder as categorydisplayorder
+    } as ProductCategoryBO,
+	$manulang:
+    { 
+     manufacturerid,
+      manufacturername,smalllogo,smalllogo as manufacturersmalllogo,
+        biglogo as manufacturerbiglogo,keyword as manukeyword, metakeyword as manumetakeyword,
+        metatitle as manumetatitle, seoname as manuseoname,url as manuurl,
+        pinwarranty,warranty,compressorswarranty,refrigerationwarranty,
+        companyidlist,countryidlist as manucountryidlist,countrynamelist as manucountrynamelist,
+        newslink,description as manudescription
+        
+    } as ProductManuLangBO
+from
+	product
+let
+    $catelang = out('e_product_category').out('e_category_lang')[isactived = 1 and isdeleted = 0 and siteid = :siteid and languageid =  :lang][0],
+    $manulang = out('e_product_manu')[isactived = 1 and isdeleted = 0].out('e_manu_lang')[siteid = :siteid and languageid =  :lang][0],
+    $productlang = out('e_product_lang')[siteid = :siteid and languageid = :lang][0]
+where
+	productid = :productid  

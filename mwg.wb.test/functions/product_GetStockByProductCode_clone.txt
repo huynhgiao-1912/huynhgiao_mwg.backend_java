@@ -1,0 +1,30 @@
+Params: productid, brandid
+Language: sql
+##########################
+select
+	provinceid,
+      sum(quantity) as quantity
+from
+(
+  select
+      quantity,
+      out_e_stock_store.in.provinceid as provinceid,
+      out_e_stock_store.in.brandid[0] as brandid
+  from
+  (
+    TRAVERSE out_e_code_stock.in
+    from
+    (
+    select
+    from
+        pm_product
+    where
+        productid = :productid
+    ) MAXDEPTH 1
+  )
+  where 
+      @class = 'pm_currentinstock'
+)
+where brandid = :brandid
+group by
+	provinceid

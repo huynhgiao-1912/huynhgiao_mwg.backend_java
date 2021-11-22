@@ -1,0 +1,9 @@
+Params: cateid, siteid, lang
+Language: sql
+##########################
+select
+	manufacturerid as manufactureid, classifiedcount, countproduct, url, seoname, isexist, countclassified, displayorder, timermetadescription, timermetakeyword, timermetatitle, timerfromdate, timertodate, $lang.manufacturername as manufacturername, $lang.keyword as keyword, $lang.description as description, $lang.languageid as languageid, $lang.metadescription as metadescription, $lang.metakeyword as metakeyword, $lang.metatitle as metatitle, isactived
+from product_manu
+let
+	$lang = out('e_manu_lang')[languageid = :lang and siteid = :siteid][0]
+where categoryid = :cateid and isactived = 1

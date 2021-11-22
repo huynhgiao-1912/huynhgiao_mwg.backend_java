@@ -1,0 +1,54 @@
+Params: productid, brandid
+Language: sql
+##########################
+/*
+	Lấy tồn kho theo productcode
+    Creator : Nguyễn Văn Trung
+    Date	: 20190806
+
+0131491001536
+199801
+*/
+select
+	productid,
+    provinceid,
+    sum(if(eval('quantity <= 0'),0,quantity)) as quantity,
+    sum(if(eval('vituralquantity <= 0'),0,vituralquantity)) as vituralquantity,
+    sum(if(eval('samplequantity <= 0'),0,samplequantity)) as samplequantity
+from
+(
+  select
+      productid,
+      $store[0].provinceid as provinceid,
+      inventorystatusid,
+  	  if(eval('inventorystatusid = 1'),quantity,0) as vituralquantity,
+      if(eval('inventorystatusid = 1'),quantity - (lockquantity +  storechangequantity + scorderlockquantity + pcorderlockquantity + statuslockquantity + warrantydeactivequantity),0) as quantity,
+  
+  		if(eval('inventorystatusid = 3'),quantity - (lockquantity +  storechangequantity + scorderlockquantity + pcorderlockquantity + statuslockquantity + warrantydeactivequantity),0) as samplequantity
+  from
+  (
+    traverse out('e_code_stock')  from
+    (
+      select
+      	
+      from
+      	pm_product
+      where
+      	productid = :productid
+    )maxdepth 1 STRATEGY BREADTH_FIRST
+  )
+  let
+      $store = out('e_stock_store')
+  		[
+          isdeleted = 0 and issalestore = 1 and isactive = 1 and companyid = 1
+          and iswarrantystore = 0 and isshowweb = 1 and brandid = :brandid
+          
+        ]
+  where @class = 'pm_currentinstock'
+  and (inventorystatusid = 1 or inventorystatusid = 3)
+)
+where provinceid is not null
+
+group by
+	productid,
+    provinceid

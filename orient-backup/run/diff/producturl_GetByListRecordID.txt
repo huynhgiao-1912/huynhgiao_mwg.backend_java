@@ -1,0 +1,6 @@
+Params: recordids
+Language: sql
+##########################
+select json
+from hashurl
+where recordid in :recordids

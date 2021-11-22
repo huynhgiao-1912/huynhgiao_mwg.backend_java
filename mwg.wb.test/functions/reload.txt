@@ -1,0 +1,6 @@
+Language: javascript
+##########################
+ 
+var db = orient.getDatabase(); 
+ db.reload();
+        

@@ -1,0 +1,58 @@
+
+<!DOCTYPE configuration>
+
+<configuration>
+	<contextName>LOG</contextName>
+	<jmxConfigurator />
+
+	<conversionRule conversionWord="clr"
+		converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+	<conversionRule conversionWord="wex"
+		converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+	<conversionRule conversionWord="wEx"
+		converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+	<property name="CONSOLE_LOG_PATTERN"
+		value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="GELF"
+		class="biz.paluch.logging.gelf.logback.GelfLogbackAppender">
+		<host>udp:172.16.3.66</host>
+		<port>12201</port>
+		<version>1.1</version>
+		<facility>JAVA_API</facility>
+		<extractStackTrace>true</extractStackTrace>
+		<filterStackTrace>true</filterStackTrace>
+		<mdcProfiling>true</mdcProfiling>
+		<timestampPattern>yyyy-MM-dd HH:mm:ss,SSS</timestampPattern>
+		<maximumMessageSize>1000000</maximumMessageSize>
+
+		<!-- This are static fields -->
+		<additionalFields>sourceLog=JAVAAPI</additionalFields>
+		<!-- Optional: Specify field types -->
+		<additionalFieldTypes>sourceLog=String</additionalFieldTypes>
+		
+
+	</appender>
+	
+	
+
+	<root level="ERROR">
+		<!-- <appender-ref ref="GELF" /> -->
+		<appender-ref ref="STDOUT" />
+	</root>
+	<root level="WARN">
+		<!-- <appender-ref ref="GELF" /> -->
+		<appender-ref ref="STDOUT" />
+	</root>
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

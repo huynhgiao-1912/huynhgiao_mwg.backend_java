@@ -1,0 +1,26 @@
+Params: productid, siteid
+Language: sql
+##########################
+/*
+	Lấy hình gallery của sản phẩm
+    Creator : Nguyễn Văn Trung
+    Date	: 20190808
+    
+    productid: 20690
+    siteid: 1
+*/
+select
+	categoryid,
+    $productgallery:
+	{
+      	siteid, pictureid, productid,mobile_picture,
+		description,videourl,picture_large,
+        picture_org,displayorder,isactived,
+        ifnull(picture_thumbnail,picture_org) as picture
+	} as productgallery
+from
+	product
+let
+	$productgallery = out('e_product_gallery')[isactived = 1 and isdeleted = 0]
+where
+	productid = :productid  

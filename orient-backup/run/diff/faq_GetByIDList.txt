@@ -1,0 +1,25 @@
+Params: idlist
+Language: sql
+##########################
+/*
+	Lấy chi tiết FAQ
+    Creator : Nguyễn Văn Trung
+    Date	: 20200102
+    
+    news : 1192415
+*/
+select
+	newsid,categoryid,listcategoryid,listnodetree as ListTreeCategoryID,title,content,
+    keyword,tags,isactived,isdeleted,viewcounter,likecounter,dislikecount,
+    productidlist,eventidlist,hottopicidlist,relateproductid,createddate,updateddate,
+    displayorder,posttype,userid,storeid,metatitle,metadescription,metakeyword,
+    labelid,image,url,detailimage,iscommentallow,isgallery,isvideo,
+    extenallink,isfeature,ipcreated,issticked,createduser,listcategoryname,isdraft,
+    siteid,videolink,topicidlist,topicnamelist,activeddate,activeduser,
+      thumbnailimage,shortdescription,commentcount as amountcomment,
+      isuseranswer, thumbnailimage, ismanual, isadminanswer, isuseranswer
+from
+	news
+ where 
+    newsid in :idlist
+    and categoryid in [1226,1222] 

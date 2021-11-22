@@ -1,0 +1,9 @@
+Params: categoryid
+Language: sql
+##########################
+SELECT productname, createddate,categoryid FROM product
+WHERE SEARCH_CLASS("categoryid:60 OR categoryid:42", {
+    "sort": [
+       { 'field': 'createddate', reverse:true, type:'DOUBLE' } 
+        ]
+}) = true      skip 0 limit 20 

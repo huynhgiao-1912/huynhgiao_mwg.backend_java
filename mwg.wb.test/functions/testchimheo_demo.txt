@@ -1,0 +1,27 @@
+Params: categoryid, siteid, languageid
+Language: sql
+##########################
+/*
+	Lấy ra yesno prop
+    Creator : Nguyễn Văn Trung
+    Date	: 20191004
+    
+    categoryid: 42
+    siteid: 1
+    languageid: vi-VN
+    
+    oracle: PRODUCT_PROP_YESNO_BYCAT
+*/
+let $siteid = fn_getSharedSiteID(:siteid);
+select
+from
+(
+select
+	propertyid,
+    out('e_product_propvalue_lang')[siteid = :siteid and languageid = :languageid and smoothurl is not null].smoothurl as smoothurl
+from
+	product_propvalue
+  
+where
+	propertyid = 19880
+)where smoothurl is not null

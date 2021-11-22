@@ -1,0 +1,3 @@
+Language: sql
+##########################
+begin;create edge e_code_stock from (select from pm_product where productid= '4840956000004') to (select from pm_currentinstock  where recordid= 15123279);commit;

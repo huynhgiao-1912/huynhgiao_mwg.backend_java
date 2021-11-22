@@ -1,0 +1,63 @@
+Params: storeid
+Language: sql
+##########################
+/*
+	Lấy chi tiết storeid
+    Creator : Nguyễn Văn Trung
+    Date	: 20190903
+    storeid: 912
+*/
+select
+	areaid,
+companynameprefix,
+deleteddate as datedelete,
+isactive,
+isautostorechange,
+iscenterstore,
+isdeleted as isdelete,
+isinputstore,
+isrealstore,
+issalestore,
+issystem,
+iswarrantystore,
+note,
+orderindex,
+priceareaid,
+provinceid,
+storeaddress,
+storecode,
+storefax,
+storegroupid,
+storeid,
+storemanager,
+webstorename as storename,
+storephonenum,
+storeshortname,
+storetypeid,
+taxaddress,
+taxcode,
+deleteduser as userdelete,
+lat,
+lng,
+districtid,
+isshowweb,
+imagemaplarge,
+webaddress,
+
+webstoreimage,
+email as storeemail,
+openhour,
+brandid as siteid,
+bcnbstorename,
+bcnbareaid,
+bcnbprovinceid,
+isshowbcnb,
+imagemapsmall,
+reopendate,
+openingday,
+closingday,
+createddate
+from
+	pm_store
+where
+	storeid = :storeid

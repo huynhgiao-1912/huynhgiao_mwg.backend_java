@@ -1,0 +1,45 @@
+Params: productid, siteid, lang
+Language: sql
+##########################
+select
+
+    0 as isrequestimei,
+    $cate.parentid as parentid,
+    $cate.isaccessory as isaccessory,
+    $catelang:
+    {
+     	categoryid 
+    } as ProductCategoryBO, 
+    
+	$manu:
+	{
+	   manufacturerid 	} as ProductManuBO,
+	
+    $manulang:
+    { 
+     manufacturerid 
+        
+    } as ProductManuLangBO,
+    
+    $productlang:
+    {
+     siteid,languageid,	
+      productname  
+    } as  ProductLanguageBO,
+    isoriginalaccessories,
+    manufacturerid as orgmanuid,urldownload,isoutstore,
+	$promotion: {
+          recordid, promotionid  } as promotion
+from
+ product
+let
+    $catelang = out('e_product_category').out('e_category_lang')[isactived = 1 and isdeleted = 0 and siteid = 12 and languageid =  'vi-VN'][0],
+	$manu = out('e_product_manu')[0],
+    $manulang = out('e_product_manu')[isactived = 1 and isdeleted = 0].out('e_manu_lang')[siteid = 12 and languageid =  'vi-VN'][0],
+    $manufactureid = out('e_product_manu')[0].manufacturerid, 
+    $productlang = out('e_product_lang')[siteid = 12 and languageid = 'vi-VN'][0],
+    $iscollection = ifnull($productlang.iscollection,0),
+    $cate = out('e_product_category')[0],
+	$promotion = out('e_product_code').out('e_code_promotion')[isdeleted =0 and siteid = 12 and enddate > sysdate() and begindate < sysdate()]
+where
+ productid = 200294

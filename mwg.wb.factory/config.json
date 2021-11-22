@@ -1,0 +1,36 @@
+{
+"DATACENTER":2,
+"RUN_VERSION":1,
+"IS_NOT_PROCESS_LOG":0,
+ "DB_URL":"jdbc:oracle:thin:tgdd_news/46Dsg_23rr__3weETWwet_ar3@192.168.2.237:1521:oradc3",
+"DB_USER":"webtgdd",
+"DB_PASS":"46Dsg_23rr__3weETWwet_ar3",
+
+"SERVER_RABBITMQ_URLaaaa":"amqp://tgdd:Tgdd2012@192.168.2.55:5672", 
+"SERVER_RABBITMQ_URL":"amqp://graph:Gr4h$$$ph@192.168.2.55:5672", 
+"SERVER_RABBITMQ_URL1":"amqp://graph:Gr4h$$$ph@172.16.3.139:5672", 
+
+"SERVER_ELASTICSEARCH_WRITE_HOST" :"172.16.3.23",
+"SERVER_ELASTICSEARCH_READ_HOST" :"172.16.3.23", 
+"ELASTICSEARCH_PRODUCT_GALLERY_INDEX" :"ms_gallery", 
+"ELASTICSEARCH_PRODUCT_INDEX" :"ms_product", 
+"ERP_SERVICES_URL":"http://erpwebsupportservices.thegioididong.com/Web/WSWeb.asmx",
+"ERP_SERVICES_AUTHEN":"werwerewrw32423!@4#123",
+
+	    "SERVER_ORIENTDB_WRITE_USER":"admin",
+		"SERVER_ORIENTDB_WRITE_PASS":"EnterW@graph!@#",
+		"SERVER_ORIENTDB_WRITE_URL1":"remote:172.16.3.71:2424/web",
+		"SERVER_ORIENTDB_WRITE_URL2":"remote:172.16.3.73:2424/web",
+		"SERVER_ORIENTDB_WRITE_URL3":"remote:172.16.3.73:2424/web",
+ 
+
+		"SERVER_ORIENTDB_READ_USER":"admin",
+		"SERVER_ORIENTDB_READ_PASS":"EnterW@graph!@#", 
+		"SERVER_ORIENTDB_READ_URL1":"remote:172.16.3.73,172.16.3.73/web", 
+		"SERVER_ORIENTDB_READ_URL2":"remote:172.16.3.73:2424/web",
+		"SERVER_ORIENTDB_READ_URL3":"remote:172.16.3.73:2424/web",
+		"DB_CONNECTIONSTRING":"jdbc:oracle:thin:/@NEWTGDD_NEWS_RW",
+		"tns_admin":"/data/wallet/admin",
+		"wallet_location":"/data/wallet/wallets"
+		 }
+		

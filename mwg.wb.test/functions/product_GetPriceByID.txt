@@ -1,0 +1,83 @@
+Params: productid
+Language: sql
+##########################
+/*
+	Lấy giá theo productid web
+    Creator : Nguyễn Văn Trung
+    Date	: 20190802
+    
+    productid: 87846
+*/
+
+select   ispriceconfirm
+       ,islimitproduct
+       ,vituralquantity1
+       ,standardsaleprice
+       ,productid
+       ,outofstock
+       ,isedited
+       ,pricearea
+       ,minstock
+       ,storeid
+       ,onlineareasaleprice
+       ,provinceid
+       ,companyid
+       ,districtid
+       ,statusid
+       ,outofstockwarningquantity
+       ,price
+       ,ispriceofstore
+       ,isonlineonly
+       ,deliverytype
+       ,outputtype
+       ,refprice
+       ,islimit
+       ,netprice
+       ,maxprice
+       ,isselected
+       ,centerquantity
+       ,deliveryvehicles
+       ,samplequantity1
+       ,outofstockdate
+       ,luckyvalue
+       ,updatedpricedate
+       ,isshowhome
+       ,productarrivaldate
+       ,isshowweb
+       ,productcode
+       ,isbestselling
+       ,luckytoprice
+       ,isproductforthcoming
+       ,luckyfromprice
+       ,isrequestimei
+       ,onlineprice
+       ,productcodetotalquantity
+       ,arrivaldate
+       ,webminstock
+       ,standardpriceareasaleprice
+       ,iswebshow
+       ,rownumber
+       ,isinputstore
+       ,categoryid
+       ,isforthcoming
+       ,quantity
+       ,standardkit
+       ,productcodequantity
+       ,totalquantity
+       ,recordid
+       ,issalestore
+       ,hisprice
+       ,webstatusid
+       ,quantityunit
+       ,isbooking
+       ,isonlyonline
+       ,isexist
+from(
+select
+   expand(out('e_code_price'))
+from
+	pm_product
+where
+	productidref = :productid )
+where pricearea=13 and
+	productcode is not null

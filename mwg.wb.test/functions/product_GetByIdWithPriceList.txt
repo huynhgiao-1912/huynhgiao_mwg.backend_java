@@ -1,0 +1,113 @@
+Params: productid, siteid, provinceid, lang, code
+Language: sql
+##########################
+select from
+(select
+ productid, productname, url as producturl,
+    categoryid, classifiedcount,
+    if(eval('displayorder = 1 or displayorder = 0'),999,displayorder) as displayorder,
+    ratecount,lastestgenerate,isonlineonly,isdeleted,
+    0 as price,0 as preorderprice,null as productcode,null as image,0 as areadid,
+    null as areaname,null as standardkit,createddate,createduser,strgallery,
+    strgalleryallcolor,totalreview, ratescore,userguidepdf,null as configuration,
+    0 as isonlineonlyprice, 0 as ismainprice, commentcount,0 as productstatusid,
+    0 as quantity,mobile_simage,mobile_mimage,mobile_bimage,mobilestrgallery,
+    htmlwarranty,htmlshipping,importeddate,null as product_code,
+    ratingscore,isfullwidth,specs,isfeature,likecount,releasedate,
+    
+    if(eval('$iscollection = 1'),manufacturerid,$manufactureid) as manufactureid,
+    0 as iswebshow,0 as iswebshowforonline,0 as onlinerepaymentprice,
+    updateddate,tag,isfree,videotag,generalkeyword,
+    0 as isrequestimei,
+    $cate.parentid as parentid,
+    $cate.isaccessory as isaccessory,
+    $catelang:
+    {
+     	categoryid,	
+      categoryname,metakeyword as catmetakeyword, metadescription as catmetadescription,
+        metatitle as catmetatitle, url as categoryurl, keyword as catkeyword,
+        seoname as categoryseoname,displayorder as categorydisplayorder,
+        returnpolicy
+    } as ProductCategoryBO, 
+    
+	$manu:
+	{
+	   manufacturerid as manufactureid, classifiedcount, countproduct, languageid, manufacturername, description, keyword, metakeyword, metadescription, metatitle, url, seoname, isexist, countclassified, displayorder, timermetadescription, timermetakeyword, timermetatitle, timerfromdate, timertodate
+	} as ProductManuBO,
+	
+    $manulang:
+    { 
+     manufacturerid,
+      manufacturername,smalllogo,smalllogo as manufacturersmalllogo,
+        biglogo as manufacturerbiglogo,keyword as manukeyword,
+        metadescription as manumetadescription, metakeyword as manumetakeyword,
+        metatitle as manumetatitle, seoname as manuseoname,url as manuurl,
+        pinwarranty,warranty,compressorswarranty,refrigerationwarranty,
+        companyidlist,countryidlist as manucountryidlist,countrynamelist as manucountrynamelist,
+        newslink,description as manudescription
+        
+    } as ProductManuLangBO,
+    
+    $productlang:
+    {
+     siteid,languageid,	
+      productname,description,tooltip,keyword,metakeyword,metadescription,metatitle,url,
+        html,general,simage,ishot,isnew,mimage,bimage,bimage as picture,
+        seoname, warrantyinfo, userguide,htmldescription,
+        htmlmobile,featureimage, scenario, templatealias,
+        isevent,detailimage,shortdescription,expectedprice,comboproductidlist,
+        advantage,disadvantage,isshowexpectedprice,purchasinginfo,
+        featurestartdate,featureexpiredate,ishearsay,isshowexpectedtext,
+        htmlslider,kitimagesmall,kitimagelarge,specificationimage,
+        isnewsdetailversion,templatefeature,ischeckconfirmconfig,
+        htmlslidermobile,topimage,scenariostartdate,scenarioenddate,scenarioshowwebfromdate,
+        scenarioshowwebtodate,iscollection,collectionid,collectionproductcount,
+        listrelatednewsid,listrelatedvideoid,brepresentimage,mrepresentimage,
+        srepresentimage,issmartphone,redirecturl,redirectfromdate,redirecttodate,
+        badgetype,badgestartdate,badgeenddate,shortname,iseasydeal,islandingpageondetail,
+        comboproductidlist,imagesize,timermetatile,timermetadescription,timermetakeyword,
+        timerfromdate,timertodate,isshowweb,instocksiteidlist,dusermanual,
+        musermanual,isnotsale,notdeliverydistrictidlist,isrepresentproduct,
+        isreferaccessory,representproductid,showhomestartdate,provinceidlist,
+        detailshortname,northernproductname,detailsuggestdescription,searchsuggestdescription,
+        suggestfromdate,suggesttodate,combodiscountpercent,combopromotionidlist,
+        isshowfullstock,isshowhome,showhomedisplayorder,showhomeenddate,
+        desktopfeatureimage,listnewsid,ispreordercam,preordercamfromdate,
+        preordercamtodate,preordercaminfo,timerthumbmeta,timerfeatureimage,
+        timerfeaturefromdate,timerfeaturetodate,timerfeatureimagedesktop,
+        if(eval('$catelang.iswarrantyhome = 1'),1,$productlang.iswarrantyhome) as iswarrantyhome,
+        canonical,labelposition,labelcolor,webstatusid,timerthumbimage,timerthumbimagefromdate,
+        timerthumbimagetodate,combofromdate,combotodate,quantitypromotionid
+    } as  ProductLanguageBO,
+    isoriginalaccessories,
+    manufacturerid as orgmanuid,urldownload,isoutstore,
+	$promotion: {
+          recordid, promotionid, promotionlistgroupname, ispercentdiscount, discountvalue, begindate, enddate, productcodes, productids, productname, groupid, excludepromotion, promotionlistgroupid, notapplyforinstallment, provinceid, toprice, fromprice, isgiftprddiscount, quantitylist, quantitylists, returnvalue, isonline, discountvaluedisplay, ispercentdiscountdisplay, returnvalues, tovalue, fromvalue, maingroupid, isspecialprogram, homepagedescription, webshowpriority, ispercentdiscountsalelist, promotionpricelist, quantities, ischeapprice, promotiontype, isonlyforspecialsaleprogram, limitperproducttype, specialoutputtypecount, promotionoutputtypecount, siteid, saleprice, outputtypeid, productcode
+      } as promotion,
+    $pricebolist: {
+		recordid, provinceid, storeid, productid, productcode, onlineprice, price, hisprice, isonlineonly, isshowhome, iswebshow, isbestselling, ispriceconfirm, standardkit, statusid, webstatusid, arrivaldate, isforthcoming, minstock, outofstock, quantity, totalquantity, centerquantity, isexist, isselected, isedited, rownumber, productarrivaldate, isproductforthcoming, webminstock, outofstockwarningquantity, luckytoprice, luckyfromprice, luckyvalue, updatedpricedate, districtid, categoryid, issalestore, isshowweb, isinputstore, productcodetotalquantity, productcodequantity, deliveryvehicles, netprice, refprice, maxprice, islimitproduct, isrequestimei, vituralquantity1, samplequantity1, ispriceofstore, deliverytype, islimit, outofstockdate, isbooking, isonlyonline, quantityunit, standardsaleprice, standardpriceareasaleprice, onlineareasaleprice, pricearea, outputtype, companyid
+	} as producterppricebolist,
+    $defaultprice: {
+    	recordid, provinceid, storeid, productid, productcode, onlineprice, price, hisprice, isonlineonly, isshowhome, iswebshow, isbestselling, ispriceconfirm, standardkit, statusid, webstatusid, arrivaldate, isforthcoming, minstock, outofstock, quantity, totalquantity, centerquantity, isexist, isselected, isedited, rownumber, productarrivaldate, isproductforthcoming, webminstock, outofstockwarningquantity, luckytoprice, luckyfromprice, luckyvalue, updatedpricedate, districtid, categoryid, issalestore, isshowweb, isinputstore, productcodetotalquantity, productcodequantity, deliveryvehicles, netprice, refprice, maxprice, islimitproduct, isrequestimei, vituralquantity1, samplequantity1, ispriceofstore, deliverytype, islimit, outofstockdate, isbooking, isonlyonline, quantityunit, standardsaleprice, standardpriceareasaleprice, onlineareasaleprice, pricearea, outputtype, companyid
+    } as producterppricebo,
+      isactived, isdeleted,
+      ifnull($productlang.bimage,0,1) as hasbimage
+from
+ product
+let
+    $catelang = out('e_product_category').out('e_category_lang')[isactived = 1 and isdeleted = 0 and siteid = :siteid and languageid =  :lang][0],
+	$manu = out('e_product_manu')[0],
+    $manulang = out('e_product_manu')[isactived = 1 and isdeleted = 0].out('e_manu_lang')[siteid = :siteid and languageid =  :lang][0],
+    $manufactureid = out('e_product_manu')[0].manufacturerid, 
+    $productlang = out('e_product_lang')[siteid = :siteid and languageid = :lang][0],
+    $iscollection = ifnull($productlang.iscollection,0),
+    $cate = out('e_product_category')[0],
+	$promotion = out('e_product_code').out('e_code_promotion')[isdeleted =0 and siteid = :siteid and enddate > sysdate() and begindate < sysdate()],
+    $pricebolist = out('e_product_code').out('e_code_price')[provinceid = :provinceid],
+    $defaultprice = $pricebolist[productcode = :code][0]
+where
+ productid = :productid)
+ where
+	isdeleted = 0
+	and isactived = 1
+	and hasbimage = 1
